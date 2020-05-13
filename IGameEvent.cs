@@ -1,0 +1,6 @@
+namespace zettlers
+{
+    interface IGameEvent
+    {
+    }
+}

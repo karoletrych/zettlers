@@ -1,0 +1,7 @@
+namespace zettlers
+{
+    interface IJob
+    {
+
+    }
+}
