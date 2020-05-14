@@ -59,3 +59,6 @@ Thumbs.db.meta
 # VS Code
 *.vscode
 
+
+.fake
+.ionide

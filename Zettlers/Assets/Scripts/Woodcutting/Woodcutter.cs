@@ -4,6 +4,6 @@ namespace zettlers
     {
         public Building Building { get; set; }
         public Vector2 WorkArea { get; set; }
-        public CutTreeJob? Job { get; set; }
+        public CutTreeJob Job { get; set; }
     }
 }
