@@ -4,7 +4,7 @@ namespace zettlers
 {
     class TakeProfessionJobQueue
     {
-        private readonly Queue<TakeProfessionJob> _queue;
+        private readonly Queue<TakeProfessionJob> _queue = new Queue<TakeProfessionJob>();
         public TakeProfessionJob Dequeue(Vector2 pos)
         {
             return _queue.Dequeue();
