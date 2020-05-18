@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace zettlers
 {
     class PlantTreeJob : IJob
     {
-        public Vector2 TargetPosition { get; set; }
+        public Vector2Int TargetPosition { get; set; }
     }
 }

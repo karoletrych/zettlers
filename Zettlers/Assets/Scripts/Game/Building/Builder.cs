@@ -1,8 +1,10 @@
+using UnityEngine;
+
 namespace zettlers
 {
     class Builder : IZettler
     {
-        public Vector2 Pos { get; set; }
+        public Vector2Int Position { get; set; }
         public BuildJob Job { get; set; }
     }
 }

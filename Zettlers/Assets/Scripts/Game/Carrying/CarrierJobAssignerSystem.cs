@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace zettlers
 {
@@ -34,7 +35,7 @@ namespace zettlers
                     Carrier minDistCarrier = freeCarriers[0];
                     foreach (Carrier carrier in freeCarriers)
                     {
-                        double dist = carrier.Pos.Dist(job.Target.Pos);
+                        double dist = Vector2.Distance(carrier.Pos, job.Target.Position);
                         if (dist < minDist)
                         {
                             minDist = dist;

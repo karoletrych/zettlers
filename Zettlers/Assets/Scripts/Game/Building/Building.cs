@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace zettlers
 {
@@ -6,6 +7,6 @@ namespace zettlers
     {
         public Guid Id { get; set; }
         public BuildingType Type { get; set; }
-        public Vector2 Pos { get; set; }
+        public Vector2Int Position { get; set; }
     }
 }

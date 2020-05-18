@@ -18,7 +18,7 @@ namespace zettlers
             {
                 Type = @event.BuildingType,
                 Id = Guid.Empty,
-                Pos = @event.Pos
+                Position = @event.Position
             };
 
             foreach (KeyValuePair<ResourceType, int> resource in 

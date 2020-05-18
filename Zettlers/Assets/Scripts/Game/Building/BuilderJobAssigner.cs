@@ -1,3 +1,4 @@
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,7 @@ namespace zettlers
         {
             List<Builder> freeBuilders = _zettlersList.GetZettlers<Builder>().Where(c => c.Job == null).ToList();
 
-            double minDist = float.MaxValue;
+            float minDist = float.MaxValue;
             foreach (BuildJob job in _jobQueue.Queue)
             {
                 if (freeBuilders.Count == 0)
@@ -26,7 +27,7 @@ namespace zettlers
                 Builder minDistBuilder = freeBuilders[0];
                 foreach (Builder builder in freeBuilders)
                 {
-                    double dist = builder.Pos.Dist(job.Building.Pos);
+                    float dist = Vector2.Distance(builder.Position, job.Building.Position);
                     if (dist < minDist)
                     {
                         minDist = dist;

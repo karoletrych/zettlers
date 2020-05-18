@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace zettlers
 {
     class CutStoneJob : IJob
     {
-        public Vector2 Position { get; set; }
+        public Vector2Int Position { get; set; }
     }
 }
