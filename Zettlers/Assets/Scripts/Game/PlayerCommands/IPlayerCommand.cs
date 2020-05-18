@@ -1,6 +1,6 @@
 namespace zettlers
 {
-    interface IGameEvent
+    interface IPlayerCommand
     {
     }
 }

@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace zettlers
 {
     class TakeProfessionJobQueue
     {
         private readonly Queue<TakeProfessionJob> _queue = new Queue<TakeProfessionJob>();
-        public TakeProfessionJob Dequeue(Vector2Intpos)
+        public TakeProfessionJob Dequeue(Vector2Int pos)
         {
             return _queue.Dequeue();
         }

@@ -7,9 +7,9 @@ namespace zettlers
     {
         public CarrierJobQueue(ResourcePriorityList priorityList)
         {
-            foreach (var rt in ResourceType.Values)
+            foreach (var resourceType in ResourceType.Values)
             {
-                _queue.Add(rt, new List<CarryInJob>());
+                _queue.Add(resourceType, new List<CarryInJob>());
             }
         }
 

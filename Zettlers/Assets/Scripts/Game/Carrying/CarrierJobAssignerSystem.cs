@@ -6,8 +6,10 @@ namespace zettlers
 {
     class CarrierJobAssignerSystem : ISystem
     {
-        public CarrierJobAssignerSystem(ResourcePriorityList priorityList, CarrierJobQueue jobQueue, 
-        ZettlersList zettlersList)
+        public CarrierJobAssignerSystem(
+            ResourcePriorityList priorityList, 
+            CarrierJobQueue jobQueue,
+            ZettlersList zettlersList)
         {
             _priorityList = priorityList;
             _jobQueue = jobQueue;
@@ -15,7 +17,7 @@ namespace zettlers
         }
         private readonly ResourcePriorityList _priorityList;
         private readonly CarrierJobQueue _jobQueue;
-        private ZettlersList _zettlersList;
+        private readonly ZettlersList _zettlersList;
 
         public void Process()
         {
