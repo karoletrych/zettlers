@@ -1037,7 +1037,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   minHeight: 30
-  maxHeight: 10
+  maxHeight: 1
   heightDampening: 5
   keyboardZoomingSensitivity: 100
   scrollWheelZoomingSensitivity: 100
