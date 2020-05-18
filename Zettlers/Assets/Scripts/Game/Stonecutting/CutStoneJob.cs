@@ -1,8 +1,9 @@
+using Unity.Entities;
 using UnityEngine;
 
 namespace zettlers
 {
-    class CutStoneJob : IJob
+    struct CutStoneJob : IJob, IComponentData
     {
         public Vector2Int Position { get; set; }
     }

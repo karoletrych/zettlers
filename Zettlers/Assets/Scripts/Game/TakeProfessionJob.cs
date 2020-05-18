@@ -1,6 +1,8 @@
+using Unity.Entities;
+
 namespace zettlers
 {
-    class TakeProfessionJob : IJob
+    struct TakeProfessionJob : IJob, IComponentData
     {
         public Building Building { get; set; }
     }

@@ -1,6 +1,8 @@
+using Unity.Entities;
+
 namespace zettlers
 {
-    class CarryOutJob : IJob
+    struct CarryOutJob : IComponentData, IJob
     {
         public Building Source { get; set; }
         public ResourceType ResourceType { get; set; }

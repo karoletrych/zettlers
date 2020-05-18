@@ -1,6 +1,8 @@
+using Unity.Entities;
+
 namespace zettlers
 {
-    class BuildJob : IJob
+    struct BuildJob : IJob, IComponentData
     {
         public Building Building { get; set; }
         public ResourceType ResourceType { get; set; }

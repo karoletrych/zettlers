@@ -1,27 +1,21 @@
-using System.Collections.Generic;
-using System.Linq;
+// using System.Collections.Generic;
+// using System.Linq;
+// using Unity.Entities;
 
-namespace zettlers
-{
-    class CutTreeJobAssigningSystem : ISystem
-    {
-        public CutTreeJobAssigningSystem(ZettlersList zettlersList)
-        {
-            _zettlerList = zettlersList;
-        }
-
-        private ZettlersList _zettlerList;
-
-        public void Process()
-        {
-            IEnumerable<Woodcutter> freeWoodcutters = 
-                _zettlerList.GetZettlers<Woodcutter>().Where(f => f.Job == null);
-            foreach (Woodcutter woodcutter in freeWoodcutters)
-            {
-                woodcutter.Job = new CutTreeJob {
-                    Position = woodcutter.WorkArea
-                };
-            }            
-        }
-    }
-}
+// namespace zettlers
+// {
+//     class CutTreeJobAssigningSystem : ComponentSystem
+//     {
+//         public void Process()
+//         {
+//             IEnumerable<Woodcutter> freeWoodcutters = 
+//                 _zettlerList.GetZettlers<Woodcutter>().Where(f => f.Job == null);
+//             foreach (Woodcutter woodcutter in freeWoodcutters)
+//             {
+//                 woodcutter.Job = new CutTreeJob {
+//                     Position = woodcutter.WorkArea
+//                 };
+//             }            
+//         }
+//     }
+// }

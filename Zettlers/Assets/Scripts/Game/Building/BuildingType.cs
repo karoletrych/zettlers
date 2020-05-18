@@ -2,60 +2,75 @@ using System.Collections.Generic;
 
 namespace zettlers
 {
-    public class BuildingType
+    public enum BuildingType
     {
-        public IReadOnlyDictionary<ResourceType, int> ResourcesRequired { get; set; }
-        public string Name { get; set; }
+        WoodcuttersHut,
+        ForesterHut,
+        LumberMill,
+        StonecuttersHut,
+        MediumResidence,
+        StorageArea
+    }
 
-        public static readonly BuildingType WoodcuttersHut = new BuildingType
+    public static class BuildingTypeUtils
+    {
+        public static string Name(this BuildingType buildingType)
         {
-            Name = "Woodcutters Hut",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
+            switch (buildingType)
+            {
+                case BuildingType.WoodcuttersHut:
+                    return "Woodcutters Hut";
+                case BuildingType.ForesterHut:
+                    return "Foresters Hut";
+                case BuildingType.LumberMill:
+                    return "Lumber Mill";
+                case BuildingType.StonecuttersHut:
+                    return "Stonecutters Hut";
+                case BuildingType.MediumResidence:
+                    return "Medium Residence";
+                case BuildingType.StorageArea:
+                    return "Storage Area";
+                default:
+                    throw new System.Exception();
             }
-        };
-        public static readonly BuildingType ForesterHut = new BuildingType
+        }
+        public static IReadOnlyDictionary<ResourceType, int> ResourcesRequired(this BuildingType buildingType)
         {
-            Name = "Forester Hut",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
+            switch (buildingType)
+            {
+                case BuildingType.WoodcuttersHut:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                case BuildingType.ForesterHut:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                case BuildingType.LumberMill:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                case BuildingType.StonecuttersHut:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                case BuildingType.MediumResidence:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                case BuildingType.StorageArea:
+                    return new Dictionary<ResourceType, int> {
+                        {ResourceType.Planks, 2},
+                        {ResourceType.Stone, 1}
+                    };
+                default:
+                    throw new System.Exception();
             }
-        };
-        public static readonly BuildingType LumberMill = new BuildingType
-        {
-            Name = "Lumber Mill",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
-            }
-        };
-        public static readonly BuildingType StonecuttersHut = new BuildingType
-        {
-            Name = "Stonecutters Hut",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
-            }
-        };
-
-        public static readonly BuildingType MediumResidence = new BuildingType
-        {
-            Name = "Medium Residence",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
-            }
-        };
-
-        public static readonly BuildingType StorageArea = new BuildingType
-        {
-            Name = "Storage Area",
-            ResourcesRequired = new Dictionary<ResourceType, int> {
-                {ResourceType.Planks, 2},
-                {ResourceType.Stone, 1}
-            }
-        };
+        }
     }
 }

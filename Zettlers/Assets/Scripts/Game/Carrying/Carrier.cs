@@ -1,10 +1,11 @@
+using Unity.Entities;
 using UnityEngine;
 
 namespace zettlers
 {
-    class Carrier : IZettler
+    struct Carrier : IComponentData
     {
         public Vector2Int Pos { get; set; }
-        public CarryInJob Job { get; set; }
+        public CarryInJob? Job { get; set; }
     }
 }

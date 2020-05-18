@@ -5,9 +5,11 @@ namespace zettlers
 {
     class CarrierJobQueue
     {
-        public CarrierJobQueue(ResourcePriorityList priorityList)
+        public static CarrierJobQueue Instance = new CarrierJobQueue();
+
+        public CarrierJobQueue()
         {
-            foreach (var resourceType in ResourceType.Values)
+            foreach (var resourceType in ResourceTypeUtils.AllResources)
             {
                 _queue.Add(resourceType, new List<CarryInJob>());
             }

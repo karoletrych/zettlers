@@ -1,43 +1,47 @@
-using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
+// using UnityEngine;
+// using System.Collections.Generic;
+// using System.Linq;
+// using Unity.Entities;
+// using Unity.Collections;
 
-namespace zettlers
-{
-    class BuilderJobAssigner
-    {
-        public BuilderJobAssigner(BuilderJobQueue jobQueue, ZettlersList builderList)
-        {
-            _jobQueue = jobQueue;
-            _zettlersList = builderList;
-        }
-        private readonly BuilderJobQueue _jobQueue;
-        private ZettlersList _zettlersList;
+// namespace zettlers
+// {
+//     class BuilderJobAssignerSystem : ComponentSystem
+//     {
+//         private EntityQuery _buildersQuery;
 
-        public void AssignBuildersToJobs()
-        {
-            List<Builder> freeBuilders = _zettlersList.GetZettlers<Builder>().Where(c => c.Job == null).ToList();
+//         protected override void OnCreate()
+//         {
+//             _buildersQuery = GetEntityQuery(typeof(Builder));
+//         }
 
-            float minDist = float.MaxValue;
-            foreach (BuildJob job in _jobQueue.Queue)
-            {
-                if (freeBuilders.Count == 0)
-                    return;
+//         protected override void OnUpdate()
+//         {
+//             NativeArray<Builder> builders = 
+//                 _buildersQuery.ToComponentDataArray<Builder>(Allocator.Temp);
+//             List<Builder> freeBuilders = builders
+//                 .Where(b => b.Job == null).ToList();
 
-                Builder minDistBuilder = freeBuilders[0];
-                foreach (Builder builder in freeBuilders)
-                {
-                    float dist = Vector2.Distance(builder.Position, job.Building.Position);
-                    if (dist < minDist)
-                    {
-                        minDist = dist;
-                        minDistBuilder = builder;
-                    }
-                }
+//             float minDist = float.MaxValue;
+//             foreach (BuildJob job in _jobQueue.Queue)
+//             {
+//                 if (freeBuilders.Count == 0)
+//                     return;
 
-                minDistBuilder.Job = job;
-                freeBuilders.Remove(minDistBuilder);
-            }
-        }
-    }
-}
+//                 Builder minDistBuilder = freeBuilders[0];
+//                 foreach (Builder builder in freeBuilders)
+//                 {
+//                     float dist = Vector2.Distance(builder.Position, job.Building.Position);
+//                     if (dist < minDist)
+//                     {
+//                         minDist = dist;
+//                         minDistBuilder = builder;
+//                     }
+//                 }
+
+//                 minDistBuilder.Job = job;
+//                 freeBuilders.Remove(minDistBuilder);
+//             }
+//         }
+//     }
+// }

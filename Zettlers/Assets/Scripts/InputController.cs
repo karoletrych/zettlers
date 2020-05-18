@@ -48,7 +48,9 @@ public class InputController : MonoBehaviour
             RaycastHit hit;
             if (ground.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity)) {
                 transform.position = hit.point;
-                print("Building type:" + BuildingSelected.BuildingType.Name + "position:" + hit.point);
+                print(
+                    "Building type:" + BuildingSelected.BuildingType.Name() + 
+                    " position:" + hit.point);
             }
         }
     }

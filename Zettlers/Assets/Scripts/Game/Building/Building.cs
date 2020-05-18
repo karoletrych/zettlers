@@ -1,9 +1,10 @@
 using System;
+using Unity.Entities;
 using UnityEngine;
 
 namespace zettlers
 {
-    class Building
+    struct Building : IComponentData
     {
         public Guid Id { get; set; }
         public BuildingType Type { get; set; }

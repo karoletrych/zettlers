@@ -1,10 +1,11 @@
+using Unity.Entities;
 using UnityEngine;
 
 namespace zettlers
 {
-    class Builder : IZettler
+    struct Builder : IComponentData
     {
         public Vector2Int Position { get; set; }
-        public BuildJob Job { get; set; }
+        public BuildJob? Job { get; set; }
     }
 }

@@ -1,8 +1,13 @@
+using System;
+using Unity.Entities;
+using UnityEngine;
+
 namespace zettlers
 {
-    class CarryInJob : IJob
+    struct CarryInJob : IComponentData, IJob
     {
-        public Building Target { get; set; }
+        public Guid TargetBuildingId { get; set; }
+        public Vector2Int TargetBuildingPosition { get; set; }
         public ResourceType ResourceType { get; set; }
     }
 }

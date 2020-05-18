@@ -2,6 +2,5 @@ namespace zettlers
 {
     interface IJob
     {
-
     }
 }

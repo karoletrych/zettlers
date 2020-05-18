@@ -1,35 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
+using Unity.Entities;
 using UnityEngine;
 
 namespace zettlers
 {
-    class CarrierJobAssignerSystem : ISystem
+    class CarrierJobAssignerSystem : ComponentSystem
     {
-        public CarrierJobAssignerSystem(
-            ResourcePriorityList priorityList, 
-            CarrierJobQueue jobQueue,
-            ZettlersList zettlersList)
+        private EntityQuery _carriersQuery;
+
+        protected override void OnCreate()
         {
-            _priorityList = priorityList;
-            _jobQueue = jobQueue;
-            _zettlersList = zettlersList;
+            _carriersQuery = GetEntityQuery(typeof(Carrier));
         }
-        private readonly ResourcePriorityList _priorityList;
-        private readonly CarrierJobQueue _jobQueue;
-        private readonly ZettlersList _zettlersList;
-
-        public void Process()
+        protected override void OnUpdate()
         {
-            List<Carrier> freeCarriers = _zettlersList.GetZettlers<Carrier>().Where(c => c.Job == null).ToList();
+            CarrierJobQueue jobQueue = CarrierJobQueue.Instance;
 
-            foreach (var resourceType in _priorityList.PriorityList)
+            NativeArray<Carrier> carriers = 
+                _carriersQuery.ToComponentDataArray<Carrier>(Allocator.Temp);
+
+            List<Carrier> freeCarriers = carriers
+                .Where(c => c.Job == null).ToList();
+
+            foreach (ResourceType resourceType in ResourcePriorityList.PriorityList)
             {
-                if (_jobQueue.Queue[resourceType].Count == 0)
+                if (jobQueue.Queue[resourceType].Count == 0)
                     continue;
 
                 double minDist = float.MaxValue;
-                foreach (CarryInJob job in _jobQueue.Queue[resourceType])
+                foreach (CarryInJob job in jobQueue.Queue[resourceType])
                 {
                     if (freeCarriers.Count == 0)
                         return;
@@ -37,7 +38,10 @@ namespace zettlers
                     Carrier minDistCarrier = freeCarriers[0];
                     foreach (Carrier carrier in freeCarriers)
                     {
-                        double dist = Vector2.Distance(carrier.Pos, job.Target.Position);
+                        float dist = Vector2.Distance(
+                            carrier.Pos, 
+                            job.TargetBuildingPosition);
+
                         if (dist < minDist)
                         {
                             minDist = dist;
