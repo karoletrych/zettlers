@@ -22,7 +22,7 @@ namespace zettlers
             };
 
             foreach (KeyValuePair<ResourceType, int> resource in 
-                @event.BuildingType.ResourcesRequiredToBuild)
+                @event.BuildingType.ResourcesRequired)
             {
                 for (int i = 0; i < resource.Value; i++)
                 {

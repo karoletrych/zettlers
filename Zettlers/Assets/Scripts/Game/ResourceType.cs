@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace zettlers
 {
-    class ResourceType
+    public class ResourceType
     {
         public static IEnumerable<ResourceType> Values => new[] {
             ResourceType.Wood,
