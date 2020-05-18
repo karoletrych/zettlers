@@ -265,8 +265,13 @@ namespace RTS_Cam
             if(distanceToGround != targetHeight)
                 difference = targetHeight - distanceToGround;
 
-            m_Transform.position = Vector3.Lerp(m_Transform.position, 
-                new Vector3(m_Transform.position.x, targetHeight + difference, m_Transform.position.z), Time.deltaTime * heightDampening);
+            m_Transform.position = Vector3.Lerp(
+                m_Transform.position, 
+                new Vector3(
+                    m_Transform.position.x, 
+                    targetHeight + difference, 
+                    m_Transform.position.z), 
+                Time.deltaTime * heightDampening);
         }
 
         /// <summary>
