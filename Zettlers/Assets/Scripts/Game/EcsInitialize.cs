@@ -24,13 +24,13 @@ public class EcsInitialize : MonoBehaviour
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        Vector3 position;
-        for (var x = 0; x < 5; x++)
+
+        for (var x = 0; x < 3; x++)
         {
-            for (var y = 0; y < 5; y++)
+            for (var y = 0; y < 3; y++)
             {
                 Entity instance = entityManager.Instantiate(PrefabEntities.ZettlerEntity);
-                position = transform.TransformPoint(new float3(x * 1.3F, 6, y * 1.3F));
+                Vector3 position = transform.TransformPoint(new float3(x * 1.3F, 6, y * 1.3F));
                 entityManager.SetComponentData(instance, new Translation { Value = position });
             }
         }
