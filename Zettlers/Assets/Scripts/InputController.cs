@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using zettlers;
@@ -10,9 +11,10 @@ public class BuildingSelected
 
 public class InputController : MonoBehaviour
 {
+    private PlayerCommandBus _playerCommandBus;
     void Start()
     {
-        
+        _playerCommandBus = new PlayerCommandBus();
     }
 
     void Update()
@@ -51,6 +53,12 @@ public class InputController : MonoBehaviour
                 print(
                     "Building type:" + BuildingSelected.BuildingType.Name() + 
                     " position:" + hit.point);
+                _playerCommandBus.Post(new BuildBuildingCommand{
+                    BuildingType = BuildingSelected.BuildingType,
+                    Id = Guid.NewGuid(),
+                    Position = new Vector2Int((int)hit.point.x, (int)hit.point.z)
+                });
+                _playerCommandBus.ProcessEvents();
             }
         }
     }

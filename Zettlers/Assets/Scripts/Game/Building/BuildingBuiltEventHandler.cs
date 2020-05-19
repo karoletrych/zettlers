@@ -1,14 +1,15 @@
+using Unity.Entities;
+
 namespace zettlers
 {
-    class BuildingBuiltEventHandler : IGameEventHandler<BuildingBuilt>
+    class BuildingBuiltSystem : ComponentSystem
     {
-        private readonly TakeProfessionJobQueue _jobQueue;
-        public void Handle(BuildingBuilt @event)
+        protected override void OnUpdate()
         {
-            _jobQueue.Enqueue(new TakeProfessionJob
-            {
-                Building = @event.Building
-            });
+            // _jobQueue.Enqueue(new TakeProfessionJob
+            // {
+            //     Building = @event.Building
+            // });
         }
     }
 }

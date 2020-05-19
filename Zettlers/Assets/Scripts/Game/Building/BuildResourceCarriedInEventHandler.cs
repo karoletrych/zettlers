@@ -1,20 +1,16 @@
+using Unity.Entities;
+
 namespace zettlers
 {
-    class BuildResourceCarriedInEventHandler : IGameEventHandler<BuildResourceCarriedInEvent>
+    class BuildingBuildSystem : ComponentSystem
     {
-        private readonly BuilderJobQueue _jobQueue;
-        public BuildResourceCarriedInEventHandler(BuilderJobQueue jobQueue)
+        protected override void OnUpdate()
         {
-            _jobQueue = jobQueue;
-        }
-
-        public void Handle(BuildResourceCarriedInEvent @event)
-        {
-            _jobQueue.Enqueue(new BuildJob
-            {
-                ResourceType = @event.ResourceType,
-                Building = @event.Building
-            });
+            // _builderJobQueue.Enqueue(new BuildJob
+            // {
+            //     ResourceType = @event.ResourceType,
+            //     Building = @event.Building
+            // });
         }
     }
 }

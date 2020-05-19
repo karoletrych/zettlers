@@ -1285,3 +1285,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ZettlerPrefab: {fileID: 1530978119361648, guid: dbbdea10d9741a147b25b3d4dbcb2b7b,
     type: 3}
+  BuildingSpacePrefab: {fileID: 1686021177304871604, guid: 40e907429bf5e5444b7b1fe2edc1b431,
+    type: 3}
