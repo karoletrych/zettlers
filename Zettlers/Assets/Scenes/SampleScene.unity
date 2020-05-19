@@ -754,6 +754,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88f2fd29f58b9734683512546acec310, type: 3}
+--- !u!1 &1145222178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145222181}
+  - component: {fileID: 1145222180}
+  - component: {fileID: 1145222179}
+  m_Layer: 0
+  m_Name: Prefab2EntitiesConverter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1145222179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145222178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 0
+--- !u!114 &1145222180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145222178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f85fa1741c17dc4b9384ab6ef9613f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZettlerGameObject: {fileID: 1530978119361648, guid: dbbdea10d9741a147b25b3d4dbcb2b7b,
+    type: 3}
+  BuildingSpaceGameObject: {fileID: 1686021177304871604, guid: 40e907429bf5e5444b7b1fe2edc1b431,
+    type: 3}
+--- !u!4 &1145222181
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145222178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9103155, y: -1.7196598, z: 4.809696}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1418652965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1283,7 +1344,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf44475e0cbc6648893e01cd7c5b9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZettlerPrefab: {fileID: 1530978119361648, guid: dbbdea10d9741a147b25b3d4dbcb2b7b,
-    type: 3}
-  BuildingSpacePrefab: {fileID: 1686021177304871604, guid: 40e907429bf5e5444b7b1fe2edc1b431,
-    type: 3}
