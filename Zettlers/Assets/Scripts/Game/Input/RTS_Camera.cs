@@ -48,7 +48,7 @@ namespace RTS_Cam
         public float maxHeight = 100f; //minimnal height
         public float heightDampening = 5f; 
         public float keyboardZoomingSensitivity = 100f;
-        public float scrollWheelZoomingSensitivity = 200f;
+        public float scrollWheelZoomingSensitivity = 50f;
 
         private float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
 

@@ -5,6 +5,7 @@ namespace zettlers
 {
     struct Carrier : IComponentData
     {
+        public bool CarriesResource;
         public CarryJob? Job;
     }
 }

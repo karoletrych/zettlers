@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace zettlers
 {
-    struct CarryJob : IComponentData, IJob
+    public struct CarryJob : IComponentData
     {
         public Guid TargetBuildingId;
         public Vector2Int TargetBuildingPosition;
+        public Vector2Int? SourcePosition;
         public ResourceType ResourceType;
     }
 }

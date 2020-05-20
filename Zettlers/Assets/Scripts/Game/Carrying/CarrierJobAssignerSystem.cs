@@ -43,7 +43,6 @@ namespace zettlers
 
             foreach (ResourceType jobResourceType in ResourceCarryingPriorityList.PriorityList)
             {
-                float minDist = float.MaxValue;
                 while(CarrierJobQueue.Instance.Queues[jobResourceType].Count != 0)
                 {
                     NativeList<Entity> jobResources = new NativeList<Entity>(Allocator.Temp);
@@ -79,7 +78,7 @@ namespace zettlers
                         if (resourceToTargetDistance < minDistResourceToTarget)
                         {
                             minDistJobResourceIdx = i;
-                            minDist = resourceToTargetDistance;
+                            minDistResourceToTarget = resourceToTargetDistance;
                             minDistResource = resource;
                             minDistResourcePosition = resourcePosition;
                         }
@@ -115,6 +114,8 @@ namespace zettlers
                     Debug.Log("Assigned");
                     CarrierJobQueue.Instance.Queues[jobResourceType].Dequeue();
                     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                    
+                    job.SourcePosition = minDistResourcePosition.Position;
                     entityManager.SetComponentData(minDistCarrier, new Carrier { Job = job });
                     entityManager.SetComponentData(minDistResource, new Resource { Reserved = true });
 

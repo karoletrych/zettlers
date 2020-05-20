@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Entities;
 using System.Collections.Generic;
+using Unity.Transforms;
 
 namespace zettlers
 {
@@ -12,8 +13,11 @@ namespace zettlers
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             ZettlerEntity = conversionSystem.GetPrimaryEntity(ZettlerGameObject);
+
+            Translation position = dstManager.GetComponentData<Translation>(entity);
+            Vector2Int gameWorldPosition = position.Value.ToVector2Int();
             dstManager.AddComponentData(ZettlerEntity, 
-            new GameWorldPosition{Position = new Vector2Int()});
+                new GameWorldPosition{Position = gameWorldPosition});
         }
 
         public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)

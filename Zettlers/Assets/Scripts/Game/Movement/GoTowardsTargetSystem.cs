@@ -11,16 +11,19 @@ namespace zettlers
         {
             Entities
             .ForEach((
-                ref GameWorldPosition gameWorldPosition, 
+                ref GameWorldPosition carrierWorldPosition, 
                 ref Translation translation, 
                 ref GoTowardsTarget @goto,
                 ref Rotation rotation) =>
             {
-                Vector2 heading = @goto.TargetPosition - gameWorldPosition.Position;
+
+                Vector3 heading = (@goto.TargetPosition - carrierWorldPosition.Position).ToVector3();
+
                 heading.y = 0f;
-                // rotation.Value = quaternion.LookRotation(heading, math.up());
+                rotation.Value = quaternion.LookRotation(heading, math.up());
 
                 translation.Value += (Time.DeltaTime * math.forward(rotation.Value));
+                carrierWorldPosition.Position = translation.Value.ToVector2Int();
             });
         }
     }

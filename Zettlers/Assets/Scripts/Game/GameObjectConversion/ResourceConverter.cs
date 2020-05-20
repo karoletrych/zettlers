@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 using System.Collections.Generic;
+using Unity.Transforms;
 
 namespace zettlers
 {
@@ -11,7 +12,11 @@ namespace zettlers
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             dstManager.AddComponent(entity, typeof(Resource));
-            dstManager.AddComponentData(entity, new GameWorldPosition{Position = new Vector2Int()});
+
+            Translation position = dstManager.GetComponentData<Translation>(entity);
+            Vector2Int gameWorldPosition = position.Value.ToVector2Int();
+
+            dstManager.AddComponentData(entity, new GameWorldPosition{Position = gameWorldPosition});
             ResourceEntity = entity;
         }
 
