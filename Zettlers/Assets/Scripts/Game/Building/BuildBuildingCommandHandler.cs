@@ -35,10 +35,11 @@ namespace zettlers
             {
                 for (int i = 0; i < resource.Value; i++)
                 {
-                    CarryInJob jobData = new CarryInJob
+                    CarryJob jobData = new CarryJob
                     {
                         ResourceType = resource.Key,
-                        TargetBuildingId = buildingData.Id
+                        TargetBuildingId = buildingData.Id,
+                        TargetBuildingPosition = command.Position
                     };
                     CarrierJobQueue.Instance.Enqueue(jobData);
                 }

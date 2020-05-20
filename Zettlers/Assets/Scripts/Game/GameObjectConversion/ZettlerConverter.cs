@@ -12,6 +12,8 @@ namespace zettlers
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
             ZettlerEntity = conversionSystem.GetPrimaryEntity(ZettlerGameObject);
+            dstManager.AddComponentData(ZettlerEntity, 
+            new GameWorldPosition{Position = new Vector2Int()});
         }
 
         public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)

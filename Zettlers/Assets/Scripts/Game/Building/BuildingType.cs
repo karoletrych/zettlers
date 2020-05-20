@@ -40,33 +40,27 @@ namespace zettlers
             {
                 case BuildingType.WoodcuttersHut:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 case BuildingType.ForesterHut:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 case BuildingType.LumberMill:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 case BuildingType.StonecuttersHut:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 case BuildingType.MediumResidence:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 case BuildingType.StorageArea:
                     return new Dictionary<ResourceType, int> {
-                        {ResourceType.Planks, 2},
-                        {ResourceType.Stone, 1}
+                        {ResourceType.Wood, 2}
                     };
                 default:
                     throw new System.Exception();
