@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    struct GameWorldPosition : IComponentData
+    public struct GameWorldPosition : IComponentData
     {
         public Vector2Int Position;
     }

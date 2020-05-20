@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace zettlers
 {
-    class PlayerCommandBus
+    public class PlayerCommandBus
     {
         static Dictionary<PlayerCommandType, IPlayerCommandHandler> commandHandlers =
             new Dictionary<PlayerCommandType, IPlayerCommandHandler>

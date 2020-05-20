@@ -25,6 +25,7 @@ namespace zettlers
         }
         protected override void OnUpdate()
         {
+            // TODO: use CreateArchetypeChunkArray to avoid copying?
             NativeArray<Entity> carriers =
                 _carriersQuery.ToEntityArray(Allocator.Temp);
             NativeArray<Entity> allResources =

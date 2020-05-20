@@ -1,6 +1,6 @@
 namespace zettlers
 {
-    interface IPlayerCommand
+    public interface IPlayerCommand
     {
     }
 }

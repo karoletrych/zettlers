@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class BuildBuildingCommand : IPlayerCommand
+    public class BuildBuildingCommand : IPlayerCommand
     {
         public Guid BuildingId { get; set; }
         public BuildingType BuildingType { get; set; }
