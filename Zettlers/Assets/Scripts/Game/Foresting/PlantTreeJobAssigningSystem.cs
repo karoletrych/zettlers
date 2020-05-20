@@ -4,7 +4,7 @@
 
 // namespace zettlers
 // {
-//     class PlantTreeJobAssigningSystem : ComponentSystem
+//     class PlantTreeJobAssigningSystem : SystemBase
 //     {
 //         public void Process()
 //         {

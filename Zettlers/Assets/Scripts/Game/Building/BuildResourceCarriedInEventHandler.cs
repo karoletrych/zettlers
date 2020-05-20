@@ -2,7 +2,7 @@ using Unity.Entities;
 
 namespace zettlers
 {
-    class BuildingBuildSystem : ComponentSystem
+    class BuildingBuildSystem : SystemBase
     {
         protected override void OnUpdate()
         {

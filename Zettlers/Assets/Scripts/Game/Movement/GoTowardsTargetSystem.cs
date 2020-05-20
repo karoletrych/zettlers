@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class GoTowardsTargetSystem : ComponentSystem
+    class GoTowardsTargetSystem : SystemBase
     {
+        private const int Velocity = 2;
+
         protected override void OnUpdate()
         {
             Entities
@@ -22,7 +24,7 @@ namespace zettlers
                 heading.y = 0f;
                 rotation.Value = quaternion.LookRotation(heading, math.up());
 
-                translation.Value += (Time.DeltaTime * math.forward(rotation.Value));
+                translation.Value += (Time.DeltaTime * Velocity * math.forward(rotation.Value));
                 carrierWorldPosition.Position = translation.Value.ToVector2Int();
             });
         }

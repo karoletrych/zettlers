@@ -6,7 +6,7 @@
 
 // namespace zettlers
 // {
-//     class BuilderJobAssignerSystem : ComponentSystem
+//     class BuilderJobAssignerSystem : SystemBase
 //     {
 //         private EntityQuery _buildersQuery;
 

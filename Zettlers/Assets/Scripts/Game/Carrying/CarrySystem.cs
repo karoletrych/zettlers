@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class CarrySystem : ComponentSystem
+    class CarrySystem : SystemBase
     {
         protected override void OnUpdate()
         {
@@ -17,18 +17,16 @@ namespace zettlers
                 if (carrier.Job != null)
                 {
                     var dist = Vector2.Distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
-                    Debug.Log(dist);
-                    if (!carrier.CarriesResource && dist < 2f)
+                    if (carrier.CarriedResource == null && dist < 2f)
                     {
-                        Debug.Log("Touched resource");
                         manager.AddComponentData(entity,
                             new GoTowardsTarget
                             {
                                 TargetPosition = carrier.Job.Value.TargetBuildingPosition
                             });
-                        carrier.CarriesResource = true;
+                        carrier.CarriedResource = carrier.Job.Value.ResourceType;
                     }
-                    else if (!carrier.CarriesResource)
+                    else if (carrier.CarriedResource == null)
                     {
                         manager.AddComponentData(entity,
                             new GoTowardsTarget

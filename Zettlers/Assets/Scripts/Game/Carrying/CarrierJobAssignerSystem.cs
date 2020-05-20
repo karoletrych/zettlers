@@ -13,7 +13,7 @@ namespace zettlers
     /// and write to each of them.
     /// Perhaps it shouldn't be done every frame.
     /// </summary>
-    class CarrierJobAssignerSystem : ComponentSystem
+    class CarrierJobAssignerSystem : SystemBase
     {
         private EntityQuery _carriersQuery;
         private EntityQuery _woodQuery;
@@ -111,8 +111,6 @@ namespace zettlers
                             minDistCarrier = carrier;
                         }
                     }
-                    Debug.Log("Assigned");
-                    CarrierJobQueue.Instance.Queues[jobResourceType].Dequeue();
                     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
                     
                     job.SourcePosition = minDistResourcePosition.Position;

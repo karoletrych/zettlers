@@ -9,7 +9,7 @@ using zettlers;
 /// Suppresses the error: "ArgumentException: A component with type:BoneIndexOffset has not been added to the entity.", until the Unity bug is fixed.
 /// </summary>
 [UpdateInGroup(typeof(InitializationSystemGroup))]
-public class DisableCopySkinnedEntityDataToRenderEntitySystem : ComponentSystem
+public class DisableCopySkinnedEntityDataToRenderEntitySystem : SystemBase
 {
     protected override void OnCreate()
     {
