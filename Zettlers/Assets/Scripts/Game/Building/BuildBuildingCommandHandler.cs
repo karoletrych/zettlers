@@ -16,17 +16,19 @@ namespace zettlers
 
             Building buildingData = new Building
             {
-                Id = command.Id,
+                Id = command.BuildingId,
                 Type = command.BuildingType,
-                Position = command.Position
             };
 
-            Entity buildingEntity = entityManager.Instantiate(PrefabEntities.BuildingSpaceEntity);
+            Entity buildingEntity = entityManager.Instantiate(BuildingSpaceConverter.BuildingSpaceEntity);
             entityManager.AddComponentData(buildingEntity, buildingData);
+            entityManager.AddComponentData(buildingEntity, new GameWorldPosition{Position = command.Position});
 
             Vector3 position = GameObject.Find("ECS")
-                .transform.TransformPoint(new Vector3(command.Position.x * 1.3F, 7, command.Position.y * 1.3F));
-            entityManager.SetComponentData(buildingEntity, new Translation {Value = position});
+                .transform.TransformPoint(
+                    new Vector3(command.Position.x * 1.3F, 7, command.Position.y * 1.3F));
+            entityManager.SetComponentData(buildingEntity, 
+                new Translation {Value = position});
             
             foreach (KeyValuePair<ResourceType, int> resource in 
                 command.BuildingType.ResourcesRequired())

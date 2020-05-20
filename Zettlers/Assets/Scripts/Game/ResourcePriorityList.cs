@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace zettlers
 {
-    static class ResourcePriorityList
+    static class ResourceCarryingPriorityList
     {
         public static IReadOnlyList<ResourceType> PriorityList { get; } = new List<ResourceType>(){
             ResourceType.Stone,

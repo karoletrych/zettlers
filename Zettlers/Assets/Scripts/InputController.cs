@@ -55,7 +55,7 @@ public class InputController : MonoBehaviour
                     " position:" + hit.point);
                 _playerCommandBus.Post(new BuildBuildingCommand{
                     BuildingType = BuildingSelected.BuildingType,
-                    Id = Guid.NewGuid(),
+                    BuildingId = Guid.NewGuid(),
                     Position = new Vector2Int((int)hit.point.x, (int)hit.point.z)
                 });
                 _playerCommandBus.ProcessEvents();
