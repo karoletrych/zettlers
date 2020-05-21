@@ -113,9 +113,9 @@ namespace zettlers
                     }
                     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
                     
-
                     CarrierJobQueue.Instance.Queues[jobResourceType].Dequeue();
                     job.SourcePosition = minDistResourcePosition.Position;
+                    job.ResourceToCarry = minDistResource;
                     entityManager.SetComponentData(minDistCarrier, new Carrier { Job = job });
                     entityManager.SetComponentData(minDistResource, new Resource { Reserved = true });
 

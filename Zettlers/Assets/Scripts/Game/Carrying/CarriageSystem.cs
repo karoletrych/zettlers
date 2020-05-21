@@ -29,6 +29,8 @@ namespace zettlers
                         {
                             TargetPosition = carrier.Job.Value.TargetBuildingPosition
                         });
+                        entityCommandBuffer.DestroyEntity(carrier.Job.Value.ResourceToCarry);
+
                         carrier.CarriedResource = carrier.Job.Value.ResourceType;
                     }
                     else if (carrier.CarriedResource == null)

@@ -24,9 +24,7 @@ namespace zettlers
             entityManager.AddComponentData(buildingEntity, buildingData);
             entityManager.AddComponentData(buildingEntity, new GameWorldPosition{Position = command.Position});
 
-            Vector3 position = GameObject.Find("ECS")
-                .transform.TransformPoint(
-                    new Vector3(command.Position.x * 1.3F, 7, command.Position.y * 1.3F));
+            Vector3 position = command.Position.ToVector3();
             entityManager.SetComponentData(buildingEntity, 
                 new Translation {Value = position});
             

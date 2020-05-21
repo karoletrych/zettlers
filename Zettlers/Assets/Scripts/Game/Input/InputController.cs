@@ -58,7 +58,7 @@ namespace zettlers
                     {
                         BuildingType = BuildingSelected.BuildingType,
                         BuildingId = Guid.NewGuid(),
-                        Position = new Vector2Int((int)hit.point.x, (int)hit.point.z)
+                        Position = hit.point.ToVector2Int()
                     });
                     _playerCommandBus.ProcessEvents();
                 }
