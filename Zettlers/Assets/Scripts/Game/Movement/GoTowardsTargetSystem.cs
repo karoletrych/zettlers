@@ -26,7 +26,9 @@ namespace zettlers
 
                 translation.Value += (Time.DeltaTime * Velocity * math.forward(rotation.Value));
                 carrierWorldPosition.Position = translation.Value.ToVector2Int();
-            });
+            })
+            .WithoutBurst()
+            .Run();
         }
     }
 }
