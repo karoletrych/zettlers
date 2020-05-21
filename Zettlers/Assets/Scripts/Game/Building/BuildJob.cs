@@ -2,9 +2,9 @@ using Unity.Entities;
 
 namespace zettlers
 {
-    struct BuildJob : IJob, IComponentData
+    public struct BuildJob : IComponentData
     {
-        public Building Building { get; set; }
-        public ResourceType ResourceType { get; set; }
+        public Building Building;
+        public ResourceType ResourceType;
     }
 }

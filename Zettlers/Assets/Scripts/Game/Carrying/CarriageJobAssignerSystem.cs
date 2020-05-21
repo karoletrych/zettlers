@@ -72,7 +72,7 @@ namespace zettlers
 
                         float resourceToTargetDistance = Vector2.Distance(
                             resourcePosition.Position,
-                            job.TargetBuildingPosition
+                            job.TargetBuilding.Position
                             );
 
                         if (resourceToTargetDistance < minDistResourceToTarget)

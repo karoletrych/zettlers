@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace zettlers
 {
+
     public struct Building : IComponentData
     {
+        public Entity Entity;
         public Guid Id;
         public BuildingType Type;
         public Vector2Int Position;

@@ -21,13 +21,13 @@ namespace zettlers
                 if (carrier.Job != null)
                 {
                     var distToSource = Vector2.Distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
-                    var distToTarget = Vector2.Distance(pos.Position, carrier.Job.Value.TargetBuildingPosition);
+                    var distToTarget = Vector2.Distance(pos.Position, carrier.Job.Value.TargetBuilding.Position);
 
                     if (carrier.CarriedResource == null && distToSource < 2f)
                     {
                         entityCommandBuffer.AddComponent(entity, new GoTowardsTarget
                         {
-                            TargetPosition = carrier.Job.Value.TargetBuildingPosition
+                            TargetPosition = carrier.Job.Value.TargetBuilding.Position
                         });
                         entityCommandBuffer.DestroyEntity(carrier.Job.Value.ResourceToCarry);
 
@@ -42,15 +42,22 @@ namespace zettlers
                     }
                     else if (carrier.CarriedResource != null && distToTarget < 2f)
                     {
-                        carrier.Job = null;
                         entityCommandBuffer.RemoveComponent(entity, typeof(GoTowardsTarget));
+
+                        BuilderJobQueue.Queue.Enqueue(new BuildJob {
+                            Building = carrier.Job.Value.TargetBuilding,
+                            ResourceType = carrier.CarriedResource.Value
+                        });
+
+                        carrier.CarriedResource = null;
+                        carrier.Job = null;
                     }
                     else
                     {
                         entityCommandBuffer.AddComponent(entity,
                             new GoTowardsTarget
                             {
-                                TargetPosition = carrier.Job.Value.TargetBuildingPosition
+                                TargetPosition = carrier.Job.Value.TargetBuilding.Position
                             });
                     }
                 }

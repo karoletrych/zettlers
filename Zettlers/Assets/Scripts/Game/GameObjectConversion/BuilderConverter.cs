@@ -7,24 +7,24 @@ namespace zettlers
 {
     [DisallowMultipleComponent]
     [RequiresEntityConversion]
-    public class ZettlerConverter : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
+    public class BuilderConverter : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
     {
-        public GameObject ZettlerGameObject;
-        public static Entity ZettlerEntity;
+        public GameObject BuilderGameObject;
+        public static Entity BuilderEntity;
 
         public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            ZettlerEntity = conversionSystem.GetPrimaryEntity(ZettlerGameObject);
+            BuilderEntity = conversionSystem.GetPrimaryEntity(BuilderGameObject);
 
             Translation position = dstManager.GetComponentData<Translation>(entity);
             Vector2Int gameWorldPosition = position.Value.ToVector2Int();
-            dstManager.AddComponentData(ZettlerEntity, 
-                new GameWorldPosition{Position = gameWorldPosition});
+            dstManager.AddComponentData(BuilderEntity,
+                new GameWorldPosition { Position = gameWorldPosition });
         }
 
         public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
         {
-            referencedPrefabs.Add(ZettlerGameObject);
+            referencedPrefabs.Add(BuilderGameObject);
         }
     }
 }

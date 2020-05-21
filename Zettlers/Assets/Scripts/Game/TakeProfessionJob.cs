@@ -2,7 +2,7 @@ using Unity.Entities;
 
 namespace zettlers
 {
-    struct TakeProfessionJob : IJob, IComponentData
+    struct TakeProfessionJob : IComponentData
     {
         public Building Building { get; set; }
     }

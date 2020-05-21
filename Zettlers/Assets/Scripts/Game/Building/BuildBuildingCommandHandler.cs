@@ -13,16 +13,21 @@ namespace zettlers
         public void Handle(BuildBuildingCommand command)
         {
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            Entity buildingEntity = entityManager.Instantiate(BuildingSpaceConverter.BuildingSpaceEntity);
 
             Building buildingData = new Building
             {
                 Id = command.BuildingId,
                 Type = command.BuildingType,
+                Position = command.Position,
+                Entity = buildingEntity
             };
 
-            Entity buildingEntity = entityManager.Instantiate(BuildingSpaceConverter.BuildingSpaceEntity);
             entityManager.AddComponentData(buildingEntity, buildingData);
             entityManager.AddComponentData(buildingEntity, new GameWorldPosition{Position = command.Position});
+
+            int woodRequired = BuildingTypeUtils.ResourcesRequired(command.BuildingType)[ResourceType.Wood];
+            entityManager.AddComponentData(buildingEntity, new ConstructionSite{WoodStillRequired = woodRequired});
 
             Vector3 position = command.Position.ToVector3();
             entityManager.SetComponentData(buildingEntity, 
@@ -36,8 +41,7 @@ namespace zettlers
                     CarriageJob jobData = new CarriageJob
                     {
                         ResourceType = resource.Key,
-                        TargetBuildingId = buildingData.Id,
-                        TargetBuildingPosition = command.Position
+                        TargetBuilding = buildingData
                     };
                     CarrierJobQueue.Instance.Enqueue(jobData);
                 }

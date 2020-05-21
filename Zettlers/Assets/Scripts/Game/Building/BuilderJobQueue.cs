@@ -1,16 +1,10 @@
 using System.Collections.Generic;
+using Unity.Collections;
 
 namespace zettlers
 {
-    class BuilderJobQueue
+    public static class BuilderJobQueue
     {
-        public List<BuildJob> Queue =>
-            new List<BuildJob>(_queue);
-        private readonly List<BuildJob> _queue = 
-            new List<BuildJob>();
-        public void Enqueue(BuildJob job)
-        {
-            _queue.Add(job);
-        }
+        public static NativeQueue<BuildJob> Queue = new NativeQueue<BuildJob>(Allocator.Persistent);
     }
 }

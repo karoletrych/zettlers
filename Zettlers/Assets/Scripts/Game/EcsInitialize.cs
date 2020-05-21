@@ -28,13 +28,20 @@ public class EcsInitialize : MonoBehaviour
         {
             for (var y = 0; y < 3; y++)
             {
-                Entity instance = entityManager.Instantiate(ZettlerConverter.ZettlerEntity);
+                Entity instance = entityManager.Instantiate(CarrierConverter.ZettlerEntity);
                 Vector3 position = transform.TransformPoint(new float3(x * 1.3F, 6, y * 1.3F));
                 entityManager.AddComponentData(instance, new Carrier { Job = null });
                 entityManager.SetComponentData(instance, new Translation { Value = position });
             }
         }
 
+        for (var y = 0; y < 3; y++)
+        {
+            Entity instance = entityManager.Instantiate(BuilderConverter.BuilderEntity);
+            Vector3 position = transform.TransformPoint(new float3(5 + y * 1.3F, 6, y * 1.3F));
+            entityManager.AddComponentData(instance, new Builder { Job = null });
+            entityManager.SetComponentData(instance, new Translation { Value = position });
+        }
     }
 
     // Update is called once per frame
