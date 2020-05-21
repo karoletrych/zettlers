@@ -5,6 +5,8 @@ using Unity.Transforms;
 
 namespace zettlers
 {
+    [DisallowMultipleComponent]
+    [RequiresEntityConversion]
     public class ZettlerConverter : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
     {
         public GameObject ZettlerGameObject;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace zettlers
 {
+    [DisallowMultipleComponent]
+    [RequiresEntityConversion]
     public class BuildingSpaceConverter : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
     {
         public GameObject BuildingSpaceGameObject;

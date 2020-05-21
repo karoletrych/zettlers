@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2329748}
   - component: {fileID: 6426224}
   m_Layer: 0
-  m_Name: Medieval_Building_LowPoly_V2
+  m_Name: WoodcuttersHut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 156514}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0.8387898, y: 0.066223025, z: 10.506067}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

@@ -5,6 +5,8 @@ using Unity.Transforms;
 
 namespace zettlers
 {
+    [DisallowMultipleComponent]
+    [RequiresEntityConversion]
     public class ResourceConverter : MonoBehaviour, IConvertGameObjectToEntity
     {
         public static Entity ResourceEntity;
@@ -19,6 +21,5 @@ namespace zettlers
             dstManager.AddComponentData(entity, new GameWorldPosition{Position = gameWorldPosition});
             ResourceEntity = entity;
         }
-
     }
 }
