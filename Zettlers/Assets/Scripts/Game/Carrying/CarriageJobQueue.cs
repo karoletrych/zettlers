@@ -11,15 +11,15 @@ namespace zettlers
         {
             foreach (var resourceType in ResourceTypeUtils.AllResources)
             {
-                _queue.Add(resourceType, new Queue<CarryJob>());
+                _queue.Add(resourceType, new Queue<CarriageJob>());
             }
         }
 
-        public IReadOnlyDictionary<ResourceType, Queue<CarryJob>> Queues =>
-            new ReadOnlyDictionary<ResourceType, Queue<CarryJob>>(_queue);
-        private readonly Dictionary<ResourceType, Queue<CarryJob>> _queue = new Dictionary<ResourceType, Queue<CarryJob>>();
+        public IReadOnlyDictionary<ResourceType, Queue<CarriageJob>> Queues =>
+            new ReadOnlyDictionary<ResourceType, Queue<CarriageJob>>(_queue);
+        private readonly Dictionary<ResourceType, Queue<CarriageJob>> _queue = new Dictionary<ResourceType, Queue<CarriageJob>>();
 
-        public void Enqueue(CarryJob job)
+        public void Enqueue(CarriageJob job)
         {
             _queue[job.ResourceType].Enqueue(job);
         }

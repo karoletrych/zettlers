@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace zettlers
 {
-    struct Carrier : IComponentData
+    public struct Carrier : IComponentData
     {
         public ResourceType? CarriedResource;
-        public CarryJob? Job;
+        public CarriageJob? Job;
     }
 }

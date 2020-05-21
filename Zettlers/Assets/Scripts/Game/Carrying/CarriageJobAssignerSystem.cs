@@ -59,7 +59,7 @@ namespace zettlers
                         goto nextResource;
                     }
 
-                    CarryJob job = CarrierJobQueue.Instance.Queues[jobResourceType].Peek();
+                    CarriageJob job = CarrierJobQueue.Instance.Queues[jobResourceType].Peek();
 
                     int minDistJobResourceIdx = -1;
                     Entity minDistResource = jobResources[0];

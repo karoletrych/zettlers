@@ -35,7 +35,7 @@ namespace zettlers
             {
                 for (int i = 0; i < resource.Value; i++)
                 {
-                    CarryJob jobData = new CarryJob
+                    CarriageJob jobData = new CarriageJob
                     {
                         ResourceType = resource.Key,
                         TargetBuildingId = buildingData.Id,
