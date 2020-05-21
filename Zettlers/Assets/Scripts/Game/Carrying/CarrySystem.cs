@@ -20,8 +20,10 @@ namespace zettlers
             {
                 if (carrier.Job != null)
                 {
-                    var dist = Vector2.Distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
-                    if (carrier.CarriedResource == null && dist < 2f)
+                    var distToSource = Vector2.Distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
+                    var distToTarget = Vector2.Distance(pos.Position, carrier.Job.Value.TargetBuildingPosition);
+
+                    if (carrier.CarriedResource == null && distToSource < 2f)
                     {
                         entityCommandBuffer.AddComponent(entity, new GoTowardsTarget
                         {
@@ -35,6 +37,11 @@ namespace zettlers
                         {
                             TargetPosition = carrier.Job.Value.SourcePosition.Value
                         });
+                    }
+                    else if (carrier.CarriedResource != null && distToTarget < 2f)
+                    {
+                        carrier.Job = null;
+                        entityCommandBuffer.RemoveComponent(entity, typeof(GoTowardsTarget));
                     }
                     else
                     {

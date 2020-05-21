@@ -59,7 +59,7 @@ namespace zettlers
                         goto nextResource;
                     }
 
-                    CarryJob job = CarrierJobQueue.Instance.Queues[jobResourceType].Dequeue();
+                    CarryJob job = CarrierJobQueue.Instance.Queues[jobResourceType].Peek();
 
                     int minDistJobResourceIdx = -1;
                     Entity minDistResource = jobResources[0];
@@ -113,6 +113,8 @@ namespace zettlers
                     }
                     EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
                     
+
+                    CarrierJobQueue.Instance.Queues[jobResourceType].Dequeue();
                     job.SourcePosition = minDistResourcePosition.Position;
                     entityManager.SetComponentData(minDistCarrier, new Carrier { Job = job });
                     entityManager.SetComponentData(minDistResource, new Resource { Reserved = true });
