@@ -42,6 +42,7 @@ public class EcsInitialize : MonoBehaviour
             entityManager.AddComponentData(instance, new Builder { Job = null });
             entityManager.SetComponentData(instance, new Translation { Value = position });
         }
+
     }
 
     // Update is called once per frame

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class CarrySystem : SystemBase
+    class CarriageSystem : SystemBase
     {
         protected override void OnUpdate()
         {
@@ -42,7 +42,7 @@ namespace zettlers
                     }
                     else if (carrier.CarriedResource != null && distToTarget < 2f)
                     {
-                        entityCommandBuffer.RemoveComponent(entity, typeof(GoTowardsTarget));
+                        entityCommandBuffer.RemoveComponent<GoTowardsTarget>(entity);
 
                         BuilderJobQueue.Queue.Enqueue(new BuildJob {
                             Building = carrier.Job.Value.TargetBuilding,
@@ -62,6 +62,7 @@ namespace zettlers
                     }
                 }
             })
+            .WithoutBurst()
             .Run();
         }
     }
