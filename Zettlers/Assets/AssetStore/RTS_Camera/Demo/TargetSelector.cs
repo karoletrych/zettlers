@@ -6,20 +6,20 @@ using RTS_Cam;
 public class TargetSelector : MonoBehaviour 
 {
     private RTS_Camera cam;
-    private new Camera camera;
+    private Camera _camera;
     public string targetsTag;
 
     private void Start()
     {
         cam = gameObject.GetComponent<RTS_Camera>();
-        camera = gameObject.GetComponent<Camera>();
+        _camera = gameObject.GetComponent<Camera>();
     }
 
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit))
             {
