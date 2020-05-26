@@ -20,7 +20,7 @@ namespace zettlers
             _carriersQuery = GetEntityQuery(typeof(Carrier), typeof(GameWorldPosition));
             _woodQuery = GetEntityQuery(typeof(Resource), typeof(GameWorldPosition));
         }
-        protected override void OnUpdate()
+        protected override void OnTick()
         {
             NativeQueue<CarriageJob> CarrierJobQueue = 
                 World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<InputSystem>().CarriageJobQueue;

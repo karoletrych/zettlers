@@ -2,15 +2,15 @@ using Unity.Entities;
 
 namespace zettlers
 {
-    class BaseSystem : LockstepSystem
+    public class LockstepSystem : SystemBase
     {
-        override OnUpdate()
+        protected override void OnUpdate()
         {
-            if (TickManager.ReadyToMoveToNextTick())
+            if (true)
                 OnTick();
         }
 
-        protected virtual OnTick()
+        protected virtual void OnTick()
         {
         }
     }    

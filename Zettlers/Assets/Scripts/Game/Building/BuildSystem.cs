@@ -6,7 +6,7 @@ namespace zettlers
 {
     public class BuildSystem : LockstepSystem
     {
-        protected override void OnUpdate()
+        protected override void OnTick()
         {
             EntityCommandBuffer entityCommandBuffer =
                 World

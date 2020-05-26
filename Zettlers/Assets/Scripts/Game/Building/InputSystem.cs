@@ -24,7 +24,7 @@ namespace zettlers
             CarriageJobQueue.Dispose();
         }
         
-        protected override void OnUpdate()
+        protected override void OnTick()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

@@ -12,7 +12,7 @@ namespace zettlers
         {
             _buildersQuery = GetEntityQuery(typeof(Builder));
         }
-        protected override void OnUpdate()
+        protected override void OnTick()
         {
             var BuilderJobQueue = 
                 World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CarriageSystem>().BuilderJobQueue;
