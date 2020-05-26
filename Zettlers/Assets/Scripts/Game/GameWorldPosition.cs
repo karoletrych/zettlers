@@ -1,10 +1,11 @@
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
 {
     public struct GameWorldPosition : IComponentData
     {
-        public Vector2Int Position;
+        public int2 Position;
     }
 }

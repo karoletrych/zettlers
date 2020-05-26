@@ -1,5 +1,6 @@
 using System;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
@@ -10,6 +11,6 @@ namespace zettlers
         public Entity Entity;
         public Guid Id;
         public BuildingType Type;
-        public Vector2Int Position;
+        public int2 Position;
     }
 }

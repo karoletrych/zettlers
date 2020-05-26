@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -68,7 +69,7 @@ namespace zettlers
                     GameWorldPosition resourcePosition = GetComponentDataFromEntity<GameWorldPosition>(true)[jobResources[i]];
                     Entity resource = jobResources[i];
 
-                    float resourceToTargetDistance = Vector2.Distance(
+                    float resourceToTargetDistance = math.distance(
                         resourcePosition.Position,
                         job.TargetBuilding.Position
                         );
@@ -97,7 +98,7 @@ namespace zettlers
                     GameWorldPosition carrierPositionData =
                         GetComponentDataFromEntity<GameWorldPosition>(true)[carrier];
 
-                    float carrierToResourceDistance = Vector2.Distance(
+                    float carrierToResourceDistance = math.distance(
                         carrierPositionData.Position,
                         minDistResourcePosition.Position
                         );

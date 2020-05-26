@@ -1,5 +1,6 @@
 using System;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
@@ -7,7 +8,7 @@ namespace zettlers
     public struct CarriageJob
     {
         public Building TargetBuilding;
-        public Vector2Int? SourcePosition;
+        public int2? SourcePosition;
         public Entity ResourceToCarry;
         public ResourceType ResourceType;
     }

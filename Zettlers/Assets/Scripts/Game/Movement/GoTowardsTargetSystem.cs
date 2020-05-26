@@ -19,13 +19,13 @@ namespace zettlers
                 ref Rotation rotation) =>
             {
 
-                Vector3 heading = (@goto.TargetPosition - carrierWorldPosition.Position).ToVector3();
+                float3 heading = (@goto.TargetPosition - carrierWorldPosition.Position).ToFloat3();
 
                 heading.y = 0f;
                 rotation.Value = quaternion.LookRotation(heading, math.up());
 
                 translation.Value += (Time.DeltaTime * Velocity * math.forward(rotation.Value));
-                carrierWorldPosition.Position = translation.Value.ToVector2Int();
+                carrierWorldPosition.Position = translation.Value.ToInt2();
             })
             .WithoutBurst()
             .Run();

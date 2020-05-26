@@ -1,4 +1,5 @@
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace zettlers
             {
                 if (builder.Job != null)
                 {
-                    var distToTarget = Vector2.Distance(pos.Position, builder.Job.Value.Building.Position);
+                    var distToTarget = math.distance(pos.Position, builder.Job.Value.Building.Position);
 
                     if (distToTarget < 2f && builder.CurrentBuildTime < 4f)
                     {
@@ -43,10 +44,10 @@ namespace zettlers
 
                             Entity newBuilding = entityCommandBuffer.Instantiate(BuildingConverter.BuildingEntity);
 
-                            Vector2Int newBuildingPosition = builder.Job.Value.Building.Position;
+                            int2 newBuildingPosition = builder.Job.Value.Building.Position;
                             entityCommandBuffer.AddComponent(newBuilding, typeof(GameWorldPosition));
                             entityCommandBuffer.SetComponent(newBuilding, new GameWorldPosition{Position = newBuildingPosition});
-                            entityCommandBuffer.SetComponent(newBuilding, new Translation {Value = newBuildingPosition.ToVector3()});
+                            entityCommandBuffer.SetComponent(newBuilding, new Translation {Value = newBuildingPosition.ToFloat3()});
 
                             entityCommandBuffer.RemoveComponent(builder.Job.Value.Building.Entity, typeof(ConstructionSite));
                         }

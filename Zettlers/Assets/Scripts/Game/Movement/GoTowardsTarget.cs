@@ -1,10 +1,11 @@
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
 {
     struct GoTowardsTarget : IComponentData
     {
-        public Vector2Int TargetPosition;
+        public int2 TargetPosition;
     }
 }

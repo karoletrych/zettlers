@@ -64,7 +64,7 @@ namespace zettlers
                     {
                         BuildingType = BuildingSelected,
                         BuildingId = Guid.NewGuid(),
-                        Position = hit.point.ToVector2Int()
+                        Position = hit.point.ToInt2()
                     });
                 }
             }
@@ -89,7 +89,7 @@ namespace zettlers
             int woodRequired = BuildingTypeUtils.ResourcesRequired(command.BuildingType)[ResourceType.Wood];
             entityManager.AddComponentData(buildingEntity, new ConstructionSite { WoodStillRequired = woodRequired });
 
-            Vector3 position = command.Position.ToVector3();
+            float3 position = command.Position.ToFloat3();
             entityManager.SetComponentData(buildingEntity,
                 new Translation { Value = position });
 

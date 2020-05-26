@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Entities;
 using System.Collections.Generic;
 using Unity.Transforms;
+using Unity.Mathematics;
 
 namespace zettlers
 {
@@ -17,7 +18,7 @@ namespace zettlers
             BuilderEntity = conversionSystem.GetPrimaryEntity(BuilderGameObject);
 
             Translation position = dstManager.GetComponentData<Translation>(entity);
-            Vector2Int gameWorldPosition = position.Value.ToVector2Int();
+            int2 gameWorldPosition = position.Value.ToInt2();
             dstManager.AddComponentData(BuilderEntity,
                 new GameWorldPosition { Position = gameWorldPosition });
         }

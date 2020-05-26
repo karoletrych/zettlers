@@ -1,5 +1,6 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
@@ -35,8 +36,8 @@ namespace zettlers
             {
                 if (carrier.Job != null)
                 {
-                    var distToSource = Vector2.Distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
-                    var distToTarget = Vector2.Distance(pos.Position, carrier.Job.Value.TargetBuilding.Position);
+                    var distToSource = math.distance(pos.Position, carrier.Job.Value.SourcePosition.Value);
+                    var distToTarget = math.distance(pos.Position, carrier.Job.Value.TargetBuilding.Position);
 
                     if (carrier.CarriedResource == null && distToSource < 2f)
                     {

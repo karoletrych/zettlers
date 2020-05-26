@@ -1,5 +1,6 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
@@ -48,7 +49,7 @@ namespace zettlers
                     GameWorldPosition builderPositionData =
                         GetComponentDataFromEntity<GameWorldPosition>(true)[builder];
 
-                    float builderToJobDistance = Vector2.Distance(
+                    float builderToJobDistance = math.distance(
                         builderPositionData.Position,
                         job.Building.Position
                         );

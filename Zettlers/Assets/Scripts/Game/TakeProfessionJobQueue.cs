@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
@@ -6,7 +7,7 @@ namespace zettlers
     class TakeProfessionJobQueue
     {
         private readonly Queue<TakeProfessionJob> _queue = new Queue<TakeProfessionJob>();
-        public TakeProfessionJob Dequeue(Vector2Int pos)
+        public TakeProfessionJob Dequeue(int2 pos)
         {
             return _queue.Dequeue();
         }
