@@ -14,6 +14,8 @@ namespace zettlers
         }
         protected override void OnUpdate()
         {
+            var BuilderJobQueue = 
+                World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<CarriageSystem>().BuilderJobQueue;
             NativeArray<Entity> builders =
                 _buildersQuery.ToEntityArray(Allocator.Temp);
 
@@ -27,9 +29,9 @@ namespace zettlers
                 }
             }
 
-            while (BuilderJobQueue.Queue.Count != 0)
+            while (BuilderJobQueue.Count != 0)
             {
-                BuildJob job = BuilderJobQueue.Queue.Peek();
+                BuildJob job = BuilderJobQueue.Peek();
 
                 if (freebuilders.Length == 0)
                 {
@@ -60,7 +62,7 @@ namespace zettlers
                 }
                 EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-                BuilderJobQueue.Queue.Dequeue();
+                BuilderJobQueue.Dequeue();
                 entityManager.SetComponentData(minDistbuilder, new Builder { Job = job });
 
                 freebuilders.RemoveAtSwapBack(minDistbuilderIdx);

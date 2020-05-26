@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
@@ -7,12 +8,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    /// <summary>
-    /// FIXME:
-    /// This system requires to choose specific entities from 3 groups (Jobs, Carriers, Resources) 
-    /// and write to each of them.
-    /// Perhaps it shouldn't be done every frame.
-    /// </summary>
+    
     class CarrierJobAssignerSystem : SystemBase
     {
         private EntityQuery _carriersQuery;

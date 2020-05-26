@@ -19,7 +19,6 @@ namespace zettlers
             CarriageJobQueue = new NativeQueue<CarriageJob>(Allocator.Persistent);
         }
 
-
         protected override void OnDestroy()
         {
             CarriageJobQueue.Dispose();

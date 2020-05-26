@@ -1,3 +1,4 @@
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -5,6 +6,19 @@ namespace zettlers
 {
     class CarriageSystem : SystemBase
     {
+
+        public NativeQueue<BuildJob> BuilderJobQueue;
+
+        protected override void OnCreate()
+        {
+            BuilderJobQueue = new NativeQueue<BuildJob>(Allocator.Persistent);
+        }
+
+        protected override void OnDestroy()
+        {
+            BuilderJobQueue.Dispose();
+        }
+
         protected override void OnUpdate()
         {
             EntityCommandBuffer entityCommandBuffer =
@@ -12,6 +26,7 @@ namespace zettlers
                 .GetExistingSystem<EndSimulationEntityCommandBufferSystem>()
                 .CreateCommandBuffer();
 
+            var builderJobQueue = BuilderJobQueue;
             Entities
             .ForEach((
                 Entity entity,
@@ -44,7 +59,7 @@ namespace zettlers
                     {
                         entityCommandBuffer.RemoveComponent<GoTowardsTarget>(entity);
 
-                        BuilderJobQueue.Queue.Enqueue(new BuildJob {
+                        builderJobQueue.Enqueue(new BuildJob {
                             Building = carrier.Job.Value.TargetBuilding,
                             ResourceType = carrier.CarriedResource.Value
                         });
@@ -62,7 +77,6 @@ namespace zettlers
                     }
                 }
             })
-            .WithoutBurst()
             .Run();
         }
     }
