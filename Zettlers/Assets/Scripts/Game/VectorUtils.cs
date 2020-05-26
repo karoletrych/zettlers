@@ -2,7 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 namespace zettlers
 {
-    static class VectorUtils
+    public static class VectorUtils
     {
         public static Vector3 ToVector3(this Vector2Int v2)
         {
