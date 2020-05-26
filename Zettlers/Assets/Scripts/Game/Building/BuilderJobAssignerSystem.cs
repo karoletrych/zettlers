@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class BuilderJobAssignerSystem : SystemBase
+    class BuilderJobAssignerSystem : LockstepSystem
     {
         private EntityQuery _buildersQuery;
 

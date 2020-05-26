@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class GoTowardsTargetSystem : SystemBase
+    class GoTowardsTargetSystem : LockstepSystem
     {
         private const int Velocity = 2;
 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class InputSystem : SystemBase
+    class InputSystem : LockstepSystem
     {
         private BuildingType BuildingSelected = BuildingType.ForesterHut;
 

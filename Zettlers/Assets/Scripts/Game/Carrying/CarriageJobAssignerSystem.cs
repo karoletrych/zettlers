@@ -9,7 +9,7 @@ using UnityEngine;
 namespace zettlers
 {
     
-    class CarrierJobAssignerSystem : SystemBase
+    class CarrierJobAssignerSystem : LockstepSystem
     {
         private EntityQuery _carriersQuery;
         private EntityQuery _woodQuery;

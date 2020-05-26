@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    class CarriageSystem : SystemBase
+    class CarriageSystem : LockstepSystem
     {
 
         public NativeQueue<BuildJob> BuilderJobQueue;
