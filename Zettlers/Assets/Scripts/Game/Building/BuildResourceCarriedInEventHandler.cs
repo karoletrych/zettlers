@@ -4,7 +4,7 @@ namespace zettlers
 {
     class BuildingBuildSystem : LockstepSystem
     {
-        protected override void OnTick()
+        protected override void OnLockstepUpdate()
         {
             // _builderJobQueue.Enqueue(new BuildJob
             // {

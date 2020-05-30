@@ -9,7 +9,7 @@ namespace zettlers
     {
         private const int Velocity = 2;
 
-        protected override void OnTick()
+        protected override void OnLockstepUpdate()
         {
             Entities
             .ForEach((

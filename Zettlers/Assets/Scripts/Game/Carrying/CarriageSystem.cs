@@ -20,7 +20,7 @@ namespace zettlers
             BuilderJobQueue.Dispose();
         }
 
-        protected override void OnTick()
+        protected override void OnLockstepUpdate()
         {
             EntityCommandBuffer entityCommandBuffer =
                 World
