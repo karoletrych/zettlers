@@ -7,7 +7,7 @@ namespace zettlers
 {
     class GoTowardsTargetSystem : LockstepSystem
     {
-        private const int Velocity = 2;
+        private const int Velocity = 20;
 
         protected override void OnLockstepUpdate()
         {

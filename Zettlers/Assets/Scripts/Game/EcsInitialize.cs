@@ -24,9 +24,9 @@ public class EcsInitialize : MonoBehaviour
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        for (var x = 0; x < 50; x++)
+        for (var x = 0; x < 10; x++)
         {
-            for (var y = 0; y < 50; y++)
+            for (var y = 0; y < 10; y++)
             {
                 Entity instance = entityManager.Instantiate(CarrierConverter.ZettlerEntity);
                 float3 position = transform.TransformPoint(new float3(x * 1.3F, 6, y * 1.3F));
@@ -35,7 +35,7 @@ public class EcsInitialize : MonoBehaviour
             }
         }
 
-        for (var y = 0; y < 50; y++)
+        for (var y = 0; y < 10; y++)
         {
             Entity instance = entityManager.Instantiate(BuilderConverter.BuilderEntity);
             float3 position = transform.TransformPoint(new float3(5 + y * 1.3F, 6, y * 1.3F));

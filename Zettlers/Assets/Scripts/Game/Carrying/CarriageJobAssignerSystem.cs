@@ -24,7 +24,7 @@ namespace zettlers
         protected override void OnLockstepUpdate()
         {
             NativeQueue<CarriageJob> CarrierJobQueue = 
-                World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<InputSystem>().CarriageJobQueue;
+                World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<PlayerCommandProcessorSystem>().CarriageJobQueue;
 
             // TODO: use CreateArchetypeChunkArray to avoid copying?
             NativeArray<Entity> carriers =

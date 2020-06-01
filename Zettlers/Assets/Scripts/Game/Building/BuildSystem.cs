@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace zettlers
 {
-    public class BuildSystem : LockstepSystem
+    class BuildSystem : LockstepSystem
     {
         protected override void OnLockstepUpdate()
         {

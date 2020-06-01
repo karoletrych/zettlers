@@ -1,13 +1,15 @@
 using System;
+using LiteNetLib.Utils;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace zettlers
 {
-    public class BuildBuildingCommand : IPlayerCommand
+    [Serializable]
+    public struct BuildBuildingCommand : IPlayerCommand
     {
-        public Guid BuildingId { get; set; }
-        public BuildingType BuildingType { get; set; }
-        public int2 Position { get; set; }
+        public Guid BuildingId;
+        public BuildingType BuildingType;
+        public int2 Position;
     }
 }

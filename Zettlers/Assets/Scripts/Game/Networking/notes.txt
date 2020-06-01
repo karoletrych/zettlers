@@ -1,0 +1,44 @@
+for testing:
+https://support.unity3d.com/hc/en-us/articles/115003118426-Running-multiple-instances-of-Unity-referencing-the-same-project
+
+
+client:
+    not lockstepped:
+    graphics
+    input
+    checknetworkresponse
+
+    lockstepped:
+    logic
+    sendrequests
+
+server:
+    not lockstepped:
+    graphics
+    input
+
+lockstepped:
+    logic
+    sendresponses
+
+. 
+.
+.
+input 
+. 
+. 
+graphics 
+. 
+. 
+. 
+|| [networkcheckresponse (fixed)] readplayercommands sendcommands gamelogic || 
+. 
+.  
+. 
+input 
+. 
+. 
+graphics
+
+
+TODO:

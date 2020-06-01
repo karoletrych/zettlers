@@ -1,0 +1,36 @@
+using System;
+using Unity.Entities;
+using UnityEngine;
+
+namespace zettlers
+{
+    public abstract class FixedUpdateSystem : SystemBase
+    {
+        protected int TurnId = 0;
+        private readonly static TimeSpan FixedDeltaTime = TimeSpan.FromMilliseconds(100);
+
+        private DateTime _lastOnUpdateTimeStamp;
+
+        protected override void OnCreate()
+        {
+            _lastOnUpdateTimeStamp = DateTime.Now;
+        }
+        protected override sealed void OnUpdate()
+        {
+            TimeSpan timeSinceLastUpdate = DateTime.Now - _lastOnUpdateTimeStamp;
+            if (timeSinceLastUpdate >= FixedDeltaTime)
+            {
+                _lastOnUpdateTimeStamp = DateTime.Now;
+                InternalOnFixedUpdate();
+            }
+        }
+
+        private void InternalOnFixedUpdate() 
+        {
+            Debug.Log("GameFram:" + TurnId + "fixed update" + this.GetType().Name);
+            OnFixedUpdate();
+        }
+
+        protected abstract void OnFixedUpdate();
+    }
+}
