@@ -21,6 +21,8 @@ lockstepped:
     logic
     sendresponses
 
+
+Client:
 . 
 .
 .
@@ -41,4 +43,21 @@ input
 graphics
 
 
-TODO:
+
+
+Server:
+.
+.
+input
+.
+.
+graphics
+.
+.
+|| [PollClientCommands (fixed)] readplayercommands. if all commands received simulate simulate frame. merge inputs and broadcast ||
+
+
+
+
+
+

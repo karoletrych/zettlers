@@ -14,17 +14,17 @@ namespace zettlers
         {
             if (!Networking.IsServer)
             {
-                ClientFixedUpdate();
+                ClientLockstepUpdate();
             }
             else
             {
-                ServerFixedUpdate();
+                ServerLockstepUpdate();
             }
 
             TurnId++;
         }
 
-        private void ClientFixedUpdate()
+        private void ClientLockstepUpdate()
         {
             if (ReceivedConfirmation() || TurnId < PlannedLatencyInLockstepTurns)
             {
@@ -32,7 +32,7 @@ namespace zettlers
             }
         }
 
-        private void ServerFixedUpdate()
+        private void ServerLockstepUpdate()
         {
         }
 
