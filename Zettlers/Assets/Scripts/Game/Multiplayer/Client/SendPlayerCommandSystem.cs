@@ -8,22 +8,12 @@ using UnityEngine;
 namespace zettlers
 {
 
-    class NoCommand : IPlayerCommand
-    {
-    }
-
-    class PlayerCommandRequest
-    {
-        public IPlayerCommand PlayerCommand { get; set; }
-        public int LockstepTurnId { get; set; }
-    }
-
     [UpdateAfter(typeof(InputSystem))]
     class SendPlayerCommandSystem : FixedUpdateSystem
     {
         private static IPlayerCommand NoCommand = new NoCommand();
 
-        public List<PlayerCommandRequest> CommandsToSendQueue = new List<PlayerCommandRequest>();
+        public List<Request> CommandsToSendQueue = new List<Request>();
 
         protected override void OnFixedUpdate()
         {
@@ -47,7 +37,7 @@ namespace zettlers
             Debug.Log("[SendPlayerCommandSystem] Player command" + playerCommand);
 
             var clientObject = GameObject.Find("Networking");
-            var client = clientObject.GetComponent<Client>();
+            Client client = clientObject.GetComponent<Client>();
 
             InputSystem inputSystem = World.GetOrCreateSystem<InputSystem>();
 
@@ -57,12 +47,13 @@ namespace zettlers
 
             BuildBuildingCommand buildCommand = (BuildBuildingCommand)command;
 
-            CommandsToSendQueue.Add(new PlayerCommandRequest
+            Request request = new Request
             {
                 LockstepTurnId = TurnId,
                 PlayerCommand = command
-            });
-            client.SendCommand(command);
+            };
+            CommandsToSendQueue.Add(request);
+            client.Send(request);
         }
     }
 }

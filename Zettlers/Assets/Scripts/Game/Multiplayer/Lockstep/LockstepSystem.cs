@@ -39,7 +39,7 @@ namespace zettlers
         private bool ReceivedConfirmation()
         {
             var sender = World.GetOrCreateSystem<SendPlayerCommandSystem>();
-            PlayerCommandRequest firstCommand = sender.CommandsToSendQueue.FirstOrDefault();
+            Request firstCommand = sender.CommandsToSendQueue.FirstOrDefault();
             bool receivedConfirmation = 
                 firstCommand == null || 
                 firstCommand.LockstepTurnId >= TurnId - PlannedLatencyInLockstepTurns;

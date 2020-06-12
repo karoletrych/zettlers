@@ -10,23 +10,6 @@ using System.IO;
 
 namespace zettlers
 {
-    public static class int2Serializer
-    {
-        public static void Serialize(NetDataWriter writer, int2 int2)
-        {
-            writer.Put(int2.x);
-            writer.Put(int2.y);
-        }
-
-        public static int2 Deserialize(NetDataReader reader)
-        {
-            int2 res = new int2();
-            res.x = reader.GetInt();
-            res.y = reader.GetInt();
-            return res;
-        }
-    }
-
     public class Client : MonoBehaviour, INetEventListener
     {
         BinaryFormatter _binaryFormatter = new BinaryFormatter();
@@ -41,7 +24,7 @@ namespace zettlers
             _netClient.Start();
         }
 
-        public void SendCommand(IPlayerCommand command)
+        public void Send(Request request)
         {
             _netClient.PollEvents();
 
@@ -49,7 +32,7 @@ namespace zettlers
             if (peer != null && peer.ConnectionState == ConnectionState.Connected)
             {
                 MemoryStream memoryStream = new MemoryStream();
-                _binaryFormatter.Serialize(memoryStream, command);
+                _binaryFormatter.Serialize(memoryStream, request);
                 byte[] bytes = memoryStream.ToArray();
                 peer.Send(bytes, Networking.PacketDeliveryMethod);
             }

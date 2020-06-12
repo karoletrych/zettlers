@@ -4,52 +4,67 @@ using System.Net.Sockets;
 using UnityEngine;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+
 namespace zettlers
 {
+    public class PlayerRequest
+    {
+        public int PlayerId { get; set; }
+        public Request Request { get; set; }
+    }
+    class AllPlayersCommand
+    {
+        public List<PlayerRequest> PlayerCommands { get; set; }
+        public int LockstepTurnId { get; set; }
+    }
 
     public class Server : MonoBehaviour, INetEventListener, INetLogger
     {
-        private NetManager _netServer;
-        private NetPeer _ourPeer;
+        public event EventHandler<PlayerRequest> NetworkReceivedEvent;
+        private NetManager _netManager;
+        private List<NetPeer> _peers = new List<NetPeer>();
         private NetDataWriter _dataWriter;
-
+        private BinaryFormatter _binaryFormatter = new BinaryFormatter();
 
         void Start()
         {
             NetDebug.Logger = this;
             _dataWriter = new NetDataWriter();
-            _netServer = new NetManager(this);
-            _netServer.Start(port: 5000);
-            _netServer.BroadcastReceiveEnabled = true;
-            _netServer.UpdateTime = 15;
+            _netManager = new NetManager(this);
+            _netManager.Start(port: 5000);
+            _netManager.BroadcastReceiveEnabled = true;
+            _netManager.UpdateTime = 15;
         }
 
-        void Update()
+        void PollEvents()
         {
-            _netServer.PollEvents();
+            _netManager.PollEvents();
         }
 
-        void FixedUpdate()
+        void SendToAll(AllPlayersCommand allPlayersCommand)
         {
-            if (_ourPeer != null)
-            {
-                _dataWriter.Reset();
-                _dataWriter.Put(2);
-                _ourPeer.Send(_dataWriter, Networking.PacketDeliveryMethod);
-            }
+            MemoryStream memoryStream = new MemoryStream();
+            _binaryFormatter.Serialize(memoryStream, allPlayersCommand);
+            byte[] bytes = memoryStream.ToArray();
+            _netManager.SendToAll(bytes, Networking.PacketDeliveryMethod);
         }
 
         void OnDestroy()
         {
             NetDebug.Logger = null;
-            if (_netServer != null)
-                _netServer.Stop();
+            if (_netManager != null)
+            {
+                _netManager.Stop();
+            }
         }
 
         public void OnPeerConnected(NetPeer peer)
         {
             Debug.Log("[SERVER] We have new peer " + peer.EndPoint);
-            _ourPeer = peer;
+            _peers.Add(peer);
         }
 
         public void OnNetworkError(IPEndPoint endPoint, SocketError socketErrorCode)
@@ -65,7 +80,7 @@ namespace zettlers
                 Debug.Log("[SERVER] Received discovery request. Send discovery response");
                 NetDataWriter resp = new NetDataWriter();
                 resp.Put(1);
-                _netServer.SendUnconnectedMessage(resp, remoteEndPoint);
+                _netManager.SendUnconnectedMessage(resp, remoteEndPoint);
             }
         }
 
@@ -81,12 +96,16 @@ namespace zettlers
         public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
         {
             Debug.Log("[SERVER] peer disconnected " + peer.EndPoint + ", info: " + disconnectInfo.Reason);
-            if (peer == _ourPeer)
-                _ourPeer = null;
+            _peers.Remove(peer);
         }
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
+            byte[] bytes = reader.GetRemainingBytes();
+            var ms = new MemoryStream(bytes);
+            Request request = (Request)_binaryFormatter.Deserialize(ms);
+            var playerRequest = new PlayerRequest { PlayerId = peer.Id, Request = request };
+            NetworkReceivedEvent?.Invoke(this, playerRequest);
         }
 
         public void WriteNet(NetLogLevel level, string str, params object[] args)
