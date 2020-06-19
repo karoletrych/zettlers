@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -25,17 +26,42 @@ namespace zettlers
         {
             Debug.Log("[PlayerCommandProcessorSystem] Processing player commands");
 
-            InputSystem inputSystem = World.GetOrCreateSystem<InputSystem>();
+            Debug.Log(LockstepTurnId);
+            if (LockstepTurnId < 0)
+            {
+                return;
+            }
 
-            IPlayerCommand command = inputSystem.Command;
-            if(command == null)
+            Dictionary<Player, LockstepUpdate> playerUpdates = null;
+            if (NetworkingCommonConstants.IsServer)
+            {
+                playerUpdates =
+                    World.GetExistingSystem<ServerLockstepSystem>()
+                    .LockstepUpdateBuffer.DequeueUpdatesForTurn(LockstepTurnId);
+            }
+            else
+            {
+                playerUpdates =
+                    World.GetExistingSystem<ClientLockstepSystem>()
+                    .LockstepUpdateBuffer.DequeueUpdatesForTurn(LockstepTurnId);
+            }
+
+            foreach (var update in playerUpdates)
+            {
+                IPlayerCommand command = update.Value.PlayerCommand;
+                Process(command);
+            }
+        }
+
+        private void Process(IPlayerCommand command)
+        {
+            if (command is NoCommand)
                 return;
             Debug.Log("[PlayerCommandProcessorSystem] Player command" + command);
 
-
             BuildBuildingCommand buildCommand = (BuildBuildingCommand)command;
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            
+
             Entity buildingEntity = entityManager.Instantiate(BuildingSpaceConverter.BuildingSpaceEntity);
 
             Building buildingData = new Building

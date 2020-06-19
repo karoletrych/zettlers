@@ -2,19 +2,20 @@
 using System.Net.Sockets;
 using UnityEngine;
 using LiteNetLib;
-using System.Collections.Generic;
-using LiteNetLib.Utils;
-using Unity.Mathematics;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
 namespace zettlers
 {
-    public class Client : MonoBehaviour, INetEventListener
+
+    public class Client : MonoBehaviour, INetEventListener, IClient
     {
         BinaryFormatter _binaryFormatter = new BinaryFormatter();
 
         private NetManager _netClient;
+
+        public event EventHandler<Response> ResponseReceivedEvent;
 
         void Start()
         {
@@ -24,17 +25,20 @@ namespace zettlers
             _netClient.Start();
         }
 
-        public void Send(Request request)
+        public void PollResponses()
         {
             _netClient.PollEvents();
+        }
 
+        public void Send(LockstepUpdate request)
+        {
             NetPeer peer = _netClient.FirstPeer;
             if (peer != null && peer.ConnectionState == ConnectionState.Connected)
             {
                 MemoryStream memoryStream = new MemoryStream();
                 _binaryFormatter.Serialize(memoryStream, request);
                 byte[] bytes = memoryStream.ToArray();
-                peer.Send(bytes, Networking.PacketDeliveryMethod);
+                peer.Send(bytes, NetworkingCommonConstants.PacketDeliveryMethod);
             }
             else
             {
@@ -60,6 +64,10 @@ namespace zettlers
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
+            byte[] bytes = reader.GetRemainingBytes();
+            var ms = new MemoryStream(bytes);
+            Response response = (Response)_binaryFormatter.Deserialize(ms);
+            ResponseReceivedEvent?.Invoke(this, response);
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
@@ -85,5 +93,7 @@ namespace zettlers
         {
             Debug.Log("[CLIENT] We disconnected because " + disconnectInfo.Reason);
         }
+
+
     }
 }

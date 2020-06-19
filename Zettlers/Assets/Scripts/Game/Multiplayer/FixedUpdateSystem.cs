@@ -7,7 +7,7 @@ namespace zettlers
     public abstract class FixedUpdateSystem : SystemBase
     {
         protected int TurnId = 0;
-        private readonly static TimeSpan FixedDeltaTime = TimeSpan.FromMilliseconds(100);
+        private readonly static TimeSpan FixedDeltaTime = TimeSpan.FromMilliseconds(1000);
 
         private DateTime _lastOnUpdateTimeStamp;
 

@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using LiteNetLib;
 using UnityEngine;
 
 namespace zettlers
 {
-    public class Networking : MonoBehaviour
+    class NetworkingCommonConstants : MonoBehaviour
     {
 
         public static readonly DeliveryMethod PacketDeliveryMethod = DeliveryMethod.ReliableUnordered;
@@ -11,16 +12,20 @@ namespace zettlers
         public static int PlayerCount;
 
         public bool Server;
-        public int Players;
+
+        public static List<Player> Players = new List<Player>
+        {
+            new Player("player2")
+        };
+
+        public static Player ThisPlayer = new Player("player2");
+
 
         private void Start() 
         {
             IsServer = Server;
             Debug.Log("Is server " + IsServer);
 
-            
-            PlayerCount = Players;
-            Debug.Log("Players " + PlayerCount);
         }
     }
 }

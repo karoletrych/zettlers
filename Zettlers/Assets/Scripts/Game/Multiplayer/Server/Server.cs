@@ -10,24 +10,17 @@ using System.IO;
 
 namespace zettlers
 {
-    public class PlayerRequest
-    {
-        public int PlayerId { get; set; }
-        public Request Request { get; set; }
-    }
-    class AllPlayersCommand
-    {
-        public List<PlayerRequest> PlayerCommands { get; set; }
-        public int LockstepTurnId { get; set; }
-    }
 
-    public class Server : MonoBehaviour, INetEventListener, INetLogger
+
+    public class Server : MonoBehaviour, INetEventListener, INetLogger, IServer
     {
-        public event EventHandler<PlayerRequest> NetworkReceivedEvent;
+        public event EventHandler<RequestReceivedEventArgs> RequestReceivedEvent;
+        public event EventHandler<int> PlayerConnected;
         private NetManager _netManager;
         private List<NetPeer> _peers = new List<NetPeer>();
         private NetDataWriter _dataWriter;
         private BinaryFormatter _binaryFormatter = new BinaryFormatter();
+
 
         void Start()
         {
@@ -39,17 +32,17 @@ namespace zettlers
             _netManager.UpdateTime = 15;
         }
 
-        void PollEvents()
+        public void PollEvents()
         {
             _netManager.PollEvents();
         }
 
-        void SendToAll(AllPlayersCommand allPlayersCommand)
+        void SendToAll(Response allPlayersCommand)
         {
             MemoryStream memoryStream = new MemoryStream();
             _binaryFormatter.Serialize(memoryStream, allPlayersCommand);
             byte[] bytes = memoryStream.ToArray();
-            _netManager.SendToAll(bytes, Networking.PacketDeliveryMethod);
+            _netManager.SendToAll(bytes, NetworkingCommonConstants.PacketDeliveryMethod);
         }
 
         void OnDestroy()
@@ -103,9 +96,9 @@ namespace zettlers
         {
             byte[] bytes = reader.GetRemainingBytes();
             var ms = new MemoryStream(bytes);
-            Request request = (Request)_binaryFormatter.Deserialize(ms);
-            var playerRequest = new PlayerRequest { PlayerId = peer.Id, Request = request };
-            NetworkReceivedEvent?.Invoke(this, playerRequest);
+            Request update = (Request)_binaryFormatter.Deserialize(ms);
+            var playerRequest = new RequestReceivedEventArgs { ClientId = peer.Id, Request = update };
+            RequestReceivedEvent?.Invoke(this, playerRequest);
         }
 
         public void WriteNet(NetLogLevel level, string str, params object[] args)
