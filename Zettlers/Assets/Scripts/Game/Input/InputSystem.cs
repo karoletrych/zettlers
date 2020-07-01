@@ -7,7 +7,7 @@ namespace zettlers
     public class InputSystem : SystemBase
     {
         private BuildingType BuildingSelected = BuildingType.ForesterHut;
-        public IPlayerCommand Command;
+        public PlayerCommand Command;
         
         protected override void OnUpdate()
         {

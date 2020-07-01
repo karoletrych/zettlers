@@ -5,28 +5,28 @@ namespace zettlers
 {
     public class LockstepUpdateBuffer
     {
-        private Dictionary<Player, List<LockstepUpdate>> PlayerUpdates = new Dictionary<Player, List<LockstepUpdate>>();
+        private Dictionary<Player, List<LockstepUpdateRequest>> PlayerUpdates = new Dictionary<Player, List<LockstepUpdateRequest>>();
 
         public LockstepUpdateBuffer(List<Player> players)
         {
             foreach (var player in players)
             {
-                PlayerUpdates[player] = new List<LockstepUpdate>();
+                PlayerUpdates[player] = new List<LockstepUpdateRequest>();
             } 
         }
 
-        public void Add(Player player, LockstepUpdate update)
+        public void Add(Player player, LockstepUpdateRequest update)
         {
             PlayerUpdates[player].Add(update);
         }
 
-        private Dictionary<Player, LockstepUpdate> TryGetRequestsForTurn(int lockstepTurnId)
+        private Dictionary<Player, LockstepUpdateRequest> TryGetRequestsForTurn(int lockstepTurnId)
         {
-            Dictionary<Player, LockstepUpdate> requests = new Dictionary<Player, LockstepUpdate>();
+            Dictionary<Player, LockstepUpdateRequest> requests = new Dictionary<Player, LockstepUpdateRequest>();
 
             foreach (Player p in PlayerUpdates.Keys)
             {
-                LockstepUpdate update = PlayerUpdates[p].FirstOrDefault(u => u.LockstepTurnId == lockstepTurnId);
+                LockstepUpdateRequest update = PlayerUpdates[p].FirstOrDefault(u => u.LockstepTurnId == lockstepTurnId);
                 if (update is null)
                     return null;
                 else
@@ -41,9 +41,9 @@ namespace zettlers
             return TryGetRequestsForTurn(turn) != null;
         }
 
-        public Dictionary<Player, LockstepUpdate> DequeueUpdatesForTurn(int turn)
+        public Dictionary<Player, LockstepUpdateRequest> DequeueUpdatesForTurn(int turn)
         {
-            Dictionary<Player, LockstepUpdate> requests = TryGetRequestsForTurn(turn);
+            Dictionary<Player, LockstepUpdateRequest> requests = TryGetRequestsForTurn(turn);
             foreach (var player_lockstepUpdate in requests)
             {
                 PlayerUpdates[player_lockstepUpdate.Key].RemoveAll(x => x.LockstepTurnId == turn);

@@ -18,11 +18,7 @@ namespace zettlers
         private IServer _server;
         protected override void OnCreate()
         {
-            GameObject networking = GameObject.Find("Networking");
-            _server = networking.GetComponent<Server>();
-            _server.RequestReceivedEvent += SaveUpdate;
-            _server.PlayerConnected += (sender, playerId) => Players.PlayerIdToPlayerMapping.Add(playerId, NetworkingCommonConstants.Players[0]);
-
+            
             LockstepUpdateBuffer = new LockstepUpdateBuffer(NetworkingCommonConstants.Players);
         }
 
@@ -30,7 +26,7 @@ namespace zettlers
         {
             Player player = Players.PlayerIdToPlayerMapping[e.ClientId];
 
-            LockstepUpdateBuffer.Add(player, e.Request.LockstepUpdate);
+            LockstepUpdateBuffer.Add(player, e.Request);
         }
 
         public bool ReceivedConfirmation(int plannedLatencyInLockstepTurns)
@@ -41,12 +37,22 @@ namespace zettlers
 
         protected override void OnFixedUpdate()
         {
+            if (!NetworkingCommonConstants.IsServer)
+            {
+                return;
+            }
+
+            GameObject networking = GameObject.Find("Networking");
+            _server = networking.GetComponent<Server>();
+            _server.RequestReceivedEvent -= SaveUpdate;
+            _server.RequestReceivedEvent += SaveUpdate;
+            _server.PlayerConnected += (sender, playerId) => Players.PlayerIdToPlayerMapping.Add(playerId, NetworkingCommonConstants.Players[0]);
+
             _server.PollEvents();
         }
 
         protected override void OnDestroy()
         {
-            _server.RequestReceivedEvent -= SaveUpdate;
         }
     }
 }

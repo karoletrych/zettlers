@@ -32,7 +32,7 @@ namespace zettlers
                 return;
             }
 
-            Dictionary<Player, LockstepUpdate> playerUpdates = null;
+            Dictionary<Player, LockstepUpdateRequest> playerUpdates = null;
             if (NetworkingCommonConstants.IsServer)
             {
                 playerUpdates =
@@ -48,12 +48,12 @@ namespace zettlers
 
             foreach (var update in playerUpdates)
             {
-                IPlayerCommand command = update.Value.PlayerCommand;
+                PlayerCommand command = update.Value.PlayerCommand;
                 Process(command);
             }
         }
 
-        private void Process(IPlayerCommand command)
+        private void Process(PlayerCommand command)
         {
             if (command is NoCommand)
                 return;

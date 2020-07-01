@@ -12,7 +12,7 @@ namespace zettlers
 
     public class RequestReceivedEventArgs
     {
-        public Request Request { get; set; }
+        public LockstepUpdateRequest Request { get; set; }
         public int ClientId { get; set; }
     }
 }

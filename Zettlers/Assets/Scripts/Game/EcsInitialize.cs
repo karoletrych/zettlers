@@ -22,6 +22,7 @@ public class EcsInitialize : MonoBehaviour
 {
     void Start()
     {
+
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
         for (var x = 0; x < 10; x++)

@@ -2,22 +2,20 @@
 using System.Net.Sockets;
 using UnityEngine;
 using LiteNetLib;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using System;
+using LiteNetLib.Utils;
+using Google.Protobuf;
 
 namespace zettlers
 {
 
     public class Client : MonoBehaviour, INetEventListener, IClient
     {
-        BinaryFormatter _binaryFormatter = new BinaryFormatter();
-
         private NetManager _netClient;
 
-        public event EventHandler<Response> ResponseReceivedEvent;
+        public event EventHandler<LockstepUpdateResponse> ResponseReceivedEvent;
 
-        void Start()
+        public void Start()
         {
             _netClient = new NetManager(this);
             _netClient.UnconnectedMessagesEnabled = true;
@@ -25,19 +23,21 @@ namespace zettlers
             _netClient.Start();
         }
 
+        private void OnReceiveNoCommand(NoCommand obj)
+        {
+        }
+
         public void PollResponses()
         {
             _netClient.PollEvents();
         }
 
-        public void Send(LockstepUpdate request)
+        public void Send(LockstepUpdateRequest request)
         {
             NetPeer peer = _netClient.FirstPeer;
             if (peer != null && peer.ConnectionState == ConnectionState.Connected)
             {
-                MemoryStream memoryStream = new MemoryStream();
-                _binaryFormatter.Serialize(memoryStream, request);
-                byte[] bytes = memoryStream.ToArray();
+                byte[] bytes = request.Serialize().ToByteArray();
                 peer.Send(bytes, NetworkingCommonConstants.PacketDeliveryMethod);
             }
             else
@@ -46,7 +46,7 @@ namespace zettlers
             }
         }
 
-        void OnDestroy()
+        public void OnDestroy()
         {
             if (_netClient != null)
                 _netClient.Stop();
@@ -64,10 +64,15 @@ namespace zettlers
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
+
             byte[] bytes = reader.GetRemainingBytes();
-            var ms = new MemoryStream(bytes);
-            Response response = (Response)_binaryFormatter.Deserialize(ms);
-            ResponseReceivedEvent?.Invoke(this, response);
+            Commands.LockstepUpdateResponse response =
+                Commands.LockstepUpdateResponse.Parser
+                .ParseFrom(bytes);
+            Debug.Log("Client received" + response.ToString());
+
+            var deserialized = response.Deserialize();
+            this.ResponseReceivedEvent?.Invoke(this, deserialized);
         }
 
         public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)

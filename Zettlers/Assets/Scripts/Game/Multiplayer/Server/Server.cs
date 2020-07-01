@@ -7,6 +7,7 @@ using LiteNetLib.Utils;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Google.Protobuf;
 
 namespace zettlers
 {
@@ -19,10 +20,9 @@ namespace zettlers
         private NetManager _netManager;
         private List<NetPeer> _peers = new List<NetPeer>();
         private NetDataWriter _dataWriter;
-        private BinaryFormatter _binaryFormatter = new BinaryFormatter();
 
 
-        void Start()
+        public void Start()
         {
             NetDebug.Logger = this;
             _dataWriter = new NetDataWriter();
@@ -37,15 +37,13 @@ namespace zettlers
             _netManager.PollEvents();
         }
 
-        void SendToAll(Response allPlayersCommand)
+        public void SendToAll(LockstepUpdateResponse allPlayersCommand)
         {
-            MemoryStream memoryStream = new MemoryStream();
-            _binaryFormatter.Serialize(memoryStream, allPlayersCommand);
-            byte[] bytes = memoryStream.ToArray();
+            byte[] bytes = allPlayersCommand.Serialize().ToByteArray();
             _netManager.SendToAll(bytes, NetworkingCommonConstants.PacketDeliveryMethod);
         }
 
-        void OnDestroy()
+        public void OnDestroy()
         {
             NetDebug.Logger = null;
             if (_netManager != null)
@@ -95,9 +93,14 @@ namespace zettlers
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
             byte[] bytes = reader.GetRemainingBytes();
-            var ms = new MemoryStream(bytes);
-            Request update = (Request)_binaryFormatter.Deserialize(ms);
-            var playerRequest = new RequestReceivedEventArgs { ClientId = peer.Id, Request = update };
+
+            Commands.LockstepUpdateRequest rq =
+                Commands.LockstepUpdateRequest.Parser.ParseFrom(bytes);
+
+            Debug.Log("Server received" + rq.ToString());
+
+            var playerRequest = new RequestReceivedEventArgs { ClientId = peer.Id, Request = rq.Deserialize() };
+
             RequestReceivedEvent?.Invoke(this, playerRequest);
         }
 

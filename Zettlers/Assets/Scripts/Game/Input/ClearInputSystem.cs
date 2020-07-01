@@ -8,6 +8,7 @@ namespace zettlers
     // clears input command so that its only processed once via playercommandprocessor and requestsender
     [UpdateAfter(typeof(PlayerCommandProcessorSystem))]
     [UpdateAfter(typeof(ClientLockstepSystem))]
+    [UpdateAfter(typeof(ServerLockstepSystem))]
     class ClearInputSystem : FixedUpdateSystem
     {
         protected override void OnFixedUpdate()

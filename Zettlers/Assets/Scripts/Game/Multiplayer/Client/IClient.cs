@@ -4,9 +4,9 @@ namespace zettlers
 {
     public interface IClient
     {
-        void Send(LockstepUpdate update);
+        void Send(LockstepUpdateRequest update);
 
         void PollResponses();
-        event EventHandler<Response> ResponseReceivedEvent;
+        event EventHandler<LockstepUpdateResponse> ResponseReceivedEvent;
     }
 }

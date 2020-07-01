@@ -1,0 +1,34 @@
+syntax = "proto3";
+package commands;
+
+message int2 {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message LockstepUpdateRequest {
+    int32 lockstepTurnId = 1;
+    PlayerCommand playerCommand = 2;
+}
+
+message LockstepUpdateResponse {
+    map<string, PlayerCommand> playerCommands = 1;
+    int32 lockstepTurnId = 2;
+}
+
+message BuildBuildingCommand {
+    string BuildingId = 1;
+    int32 BuildingType = 2;
+    int2 Position = 3;
+}
+
+message NoCommand {
+}
+
+message PlayerCommand {
+    oneof o { 
+        NoCommand nc= 1;
+        BuildBuildingCommand bbc = 2;
+    }
+}
+

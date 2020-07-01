@@ -27,7 +27,6 @@ namespace zettlers
 
         private void InternalOnFixedUpdate() 
         {
-            Debug.Log("GameFram:" + TurnId + "fixed update" + this.GetType().Name);
             OnFixedUpdate();
         }
 
