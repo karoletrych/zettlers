@@ -16,7 +16,6 @@ namespace zettlers.Test
         void Start()
         {
             _server = new zettlers.Server();
-            _server.Start();
 
             _server.RequestReceivedEvent += SendResponse;
         }

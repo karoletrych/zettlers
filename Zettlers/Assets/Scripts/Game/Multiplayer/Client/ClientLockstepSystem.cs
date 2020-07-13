@@ -18,6 +18,14 @@ namespace zettlers
         protected override void OnCreate()
         {
             LockstepUpdateBuffer = new LockstepUpdateBuffer(NetworkingCommonConstants.Players);
+
+            if (GetSingleton<Settings>().IsServer)
+            {
+                return;
+            }
+            _client = new Client();
+            _client.ResponseReceivedEvent += ReceiveResponse;
+
         }
 
         public bool ReceivedConfirmation(int plannedLatencyInLockstepTurns)
@@ -28,14 +36,8 @@ namespace zettlers
 
         protected override void OnFixedUpdate()
         {
-            if (NetworkingCommonConstants.IsServer)
-            {
-                return;
-            }
-            var clientObject = GameObject.Find("Networking");
-            _client = clientObject.GetComponent<Client>();
-            _client.ResponseReceivedEvent -= ReceiveResponse;
-            _client.ResponseReceivedEvent += ReceiveResponse;
+
+
 
             Debug.Log("[SendPlayerCommandSystem] Receiving responses");
             _client.PollResponses();

@@ -13,7 +13,6 @@ namespace zettlers.Test
             World.DefaultGameObjectInjectionWorld.DestroyAllSystemsAndLogException();
 
             _client = new zettlers.Client();
-            _client.Start();
         }
 
         public void Update() {

@@ -9,13 +9,13 @@ using Google.Protobuf;
 namespace zettlers
 {
 
-    public class Client : MonoBehaviour, INetEventListener, IClient
+    public class Client : INetEventListener, IClient
     {
         private NetManager _netClient;
 
         public event EventHandler<LockstepUpdateResponse> ResponseReceivedEvent;
 
-        public void Start()
+        public Client()
         {
             _netClient = new NetManager(this);
             _netClient.UnconnectedMessagesEnabled = true;

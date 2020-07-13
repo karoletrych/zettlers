@@ -5,15 +5,13 @@ using UnityEngine;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using Google.Protobuf;
 
 namespace zettlers
 {
 
 
-    public class Server : MonoBehaviour, INetEventListener, INetLogger, IServer
+    public class Server : INetEventListener, INetLogger, IServer
     {
         public event EventHandler<RequestReceivedEventArgs> RequestReceivedEvent;
         public event EventHandler<int> PlayerConnected;
@@ -22,9 +20,8 @@ namespace zettlers
         private NetDataWriter _dataWriter;
 
 
-        public void Start()
+        public Server()
         {
-            NetDebug.Logger = this;
             _dataWriter = new NetDataWriter();
             _netManager = new NetManager(this);
             _netManager.Start(port: 5000);
